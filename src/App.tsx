@@ -1,3 +1,5 @@
+import HelloWorld from './components/HelloWorld'
+import Par from './components/Paragraph'
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -18,6 +20,9 @@ function App() {
         >
           Learn React
         </a>
+        <p>
+        <Par />
+        </p>
       </header>
     </div>
   );
