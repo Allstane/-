@@ -1,5 +1,4 @@
-import axios from 'axios'
-import {useState} from 'react'
+import React from 'react'
 
 export type Paragraph = {
   paragraph_id: number;
@@ -7,3 +6,4 @@ export type Paragraph = {
   txt: string;
   title: string;
 }
+
