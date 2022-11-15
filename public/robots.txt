@@ -1,3 +1,8 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Disallow:
+
+                              <Route path='/about'>
+                                <Route index element={<About />}>
+                                <Route path=':number' element={ <Home />}>
+                              <Route/>

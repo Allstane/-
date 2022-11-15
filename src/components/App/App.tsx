@@ -1,23 +1,14 @@
-import { Paragraph} from './components/Paragraph'
-import React, {ReactNode, FC, useState} from 'react'
+import { dummyP, Paragraph} from './../Paragraphs/Paragraph'
+import React, {FC, useState} from 'react'
+import {Route, Link, Routes, useParams} from 'react-router-dom'
 import './App.css'
-import axios from 'axios'
-
-const instance = axios.create({
-  baseURL: 'http://localhost:8080/paragraph/11',
-  timeout: 1000
-});
-
+import {instance} from './../AxiosInstance'
 
 function App() {
 
-   const p: Paragraph = {paragraph_id: 0,
-                        chapter_id: 0,
-                        txt: '',
-                        title: ''}
    const [left, setLeft] = useState('Пока без текста')
    const [right, setRight] = useState('Пока без текста')
-   const [para, setP] = useState<Paragraph>(p)
+   const [para, setP] = useState<Paragraph>(dummyP)
 
    async function getParagraph1() {
          instance.get<Paragraph>('http://localhost:8080/paragraph/1')
@@ -29,31 +20,36 @@ function App() {
            .then((response) => {console.log(response); setRight(response.data.txt); setP(response.data)  } )
    }
 
-   function getParagraph(id: number) {
-         instance.get<Paragraph>('http://localhost:8080/paragraph/{id}')
+   function GetParagraph(id: number) {
+         instance.get<Paragraph>('http://localhost:8080/paragraph/' + {id})
            .then((response) => {console.log(response); setRight(response.data.txt); setP(response.data)  } )
            return <></>
    }
 
-   interface ButtontProps {
-     play: React.MouseEventHandler<HTMLButtonElement> //what is the correct type here?
-   }
+   const About = () => { <div><h1>About</h1></div>}
+   const Parag = () => { <div><h1>Paragraph</h1></div>}
 
+   interface ButtontProps {
+     play: React.MouseEventHandler<HTMLButtonElement>
+   }
    const Button: FC<ButtontProps> = ({ play }) => (
      <button onClick={play}>Play</button>
    )
 
    function num(id: number) {return <p>{id}</p>}
 
-   function par () {return <>
+   interface IApplicationProps {}
+   const Par: React.FunctionComponent<IApplicationProps> = (props) => {
+              let { pid: number = 1 } = useParams();
+              return <>
               <table width='800'><tr><td width='50%' valign='top'>{left}</td><td width='50%' valign='top'>{right}</td></tr>
-                     <tr><td>3 </td><td>4 = {para.txt}</td></tr></table></>
+                     <tr><td>3 -  {GetParagraph(11)} </td><td>4 = {para.txt}</td></tr></table></>
    }
 
    return (
     <body>
       <header className="App-header">
-        <p>Header part</p>
+        <p>Header</p>
         <div>
              <button onClick={getParagraph1}>Параграф</button>
         </div>
@@ -63,7 +59,7 @@ function App() {
       </header>
       <main className="App-main">
         <p>Main part</p>
-        <p>{par()}</p>
+        <p>{<Par />}</p>
       </main>
       <footer className="App-footer">
         <p>Footer part</p>

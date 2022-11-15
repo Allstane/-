@@ -7,3 +7,4 @@ export type Paragraph = {
   title: string;
 }
 
+export const dummyP: Paragraph = {paragraph_id: 0, chapter_id: 0, txt: '', title: ''}
