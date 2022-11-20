@@ -6,22 +6,22 @@ import {instance} from './../AxiosInstance'
 interface IApplicationProps {}
 
 const Table: React.FunctionComponent<IApplicationProps> = (props) => {
-    const { left, right} = useParams();
-    const [leftP, setLeft] = useState('Пока без текста')
-    const [rightP, setRight] = useState('Пока без текста')
+    const {left, right} = useParams();
+    const [leftPar, setLeftPar] = useState<Paragraph>(dummyP)
+    const [rightPar, setRightPar] = useState<Paragraph>(dummyP)
 
     const GetParagraph: React.FunctionComponent<IApplicationProps> = (props) => {
-        instance.get<Paragraph>('http://localhost:8080/paragraph/'+left )
-                .then((response) => {console.log(response); setLeft(response.data.txt)} )
-        instance.get<Paragraph>('http://localhost:8080/paragraph/'+right )
-                .then((response) => {console.log(response); setRight(response.data.txt)} )
+        instance.get<Paragraph>('/paragraph/'+left )
+                .then((response) => {console.log(response); setLeftPar(response.data) } )
+        instance.get<Paragraph>('/paragraph/'+right )
+                .then((response) => {console.log(response); setRightPar(response.data) } )
         return <></>
        }
     return <>{<GetParagraph />}
-           <table width='800'><tr><td width='50%' valign='top' align='justify'>{leftP}</td>
-                                  <td width='50%' valign='top' align='justify'>{rightP}</td></tr>
+           <table width='800'><tr><td width='50%' valign='top' align='justify'><p>{leftPar.title}</p><p>{leftPar.txt}</p></td>
+                                  <td width='50%' valign='top' align='justify'>{rightPar.txt}</td></tr>
                               <tr><td>{Number(left)}</td>
-                                  <td>{right}</td></tr></table></>
+                                  <td>4 - </td></tr></table></>
 }
 
 const Paragraphs: React.FunctionComponent<IApplicationProps> = (props) => {

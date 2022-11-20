@@ -20,12 +20,11 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     return <BrowserRouter>
                <Routes>
                <Route path='/' element={<Home />} />
+               <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<App />} />
                <Route path='/pars/left/:left/right/:right' element={<Paragraphs />} />
-               <Route path='/:numb' element={<About /> } />
-               <Route path='/app/:pid' element={<App />} />
+               <Route path='/app/id/:id' element={<App />} />
                </Routes>
                </BrowserRouter>
-
 }
 
 const root = ReactDOM.createRoot(

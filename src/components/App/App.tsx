@@ -1,65 +1,50 @@
-import { dummyP, Paragraph} from './../Paragraphs/Paragraph'
-import React, {FC, useState} from 'react'
-import {Route, Link, Routes, useParams} from 'react-router-dom'
+import { Chapter, dummyCh, Book, dummyB} from './../Chapter'
+import React, {useState} from 'react'
+import {useParams} from 'react-router-dom'
 import './App.css'
 import {instance} from './../AxiosInstance'
 
 function App() {
 
-   const [left, setLeft] = useState('Пока без текста')
-   const [right, setRight] = useState('Пока без текста')
-   const [para, setP] = useState<Paragraph>(dummyP)
-
-   async function getParagraph1() {
-         instance.get<Paragraph>('http://localhost:8080/paragraph/1')
-           .then((response) => {console.log(response); setLeft(response.data.txt); setP(response.data)  } )
-   }
-
-   async function getParagraph17() {
-         instance.get<Paragraph>('http://localhost:8080/paragraph/17')
-           .then((response) => {console.log(response); setRight(response.data.txt); setP(response.data)  } )
-   }
-
-   function GetParagraph(id: number) {
-         instance.get<Paragraph>('http://localhost:8080/paragraph/' + {id})
-           .then((response) => {console.log(response); setRight(response.data.txt); setP(response.data)  } )
-           return <></>
-   }
-
-   const About = () => { <div><h1>About</h1></div>}
-   const Parag = () => { <div><h1>Paragraph</h1></div>}
-
-   interface ButtontProps {
-     play: React.MouseEventHandler<HTMLButtonElement>
-   }
-   const Button: FC<ButtontProps> = ({ play }) => (
-     <button onClick={play}>Play</button>
-   )
-
-   function num(id: number) {return <p>{id}</p>}
+   const {ChId, LBId, RBId} = useParams();
+   const [leftBook, setLeftBook] = useState<Book>(dummyB)
+   const [rightBook, setRightBook] = useState<Book>(dummyB)
+   const [leftChapter, setLeftChapter] = useState<Chapter>(dummyCh)
+   const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
 
    interface IApplicationProps {}
-   const Par: React.FunctionComponent<IApplicationProps> = (props) => {
-              let { pid: number = 1 } = useParams();
-              return <>
-              <table width='800'><tr><td width='50%' valign='top'>{left}</td><td width='50%' valign='top'>{right}</td></tr>
-                     <tr><td>3 -  {GetParagraph(11)} </td><td>4 = {para.txt}</td></tr></table></>
+   function getBook() {
+         instance.get<Book>('/book/'+Number(LBId)).then((response) => {console.log(response); setLeftBook(response.data) } )
+         instance.get<Book>('/book/'+Number(RBId)).then((response) => {console.log(response); setRightBook(response.data) } )
+         return <></>
+   }
+
+   function getChapter() {
+         instance.get<Chapter>('/book/'+Number(LBId)+'/chapter/'+Number(ChId))
+          .then((response) => {console.log(response); setLeftChapter(response.data) } )
+         instance.get<Chapter>('/book/'+Number(RBId)+'/chapter/'+Number(ChId))
+          .then((response) => {console.log(response); setRightChapter(response.data) } )
+          return <></>
+   }
+
+   const MainTable: React.FunctionComponent<IApplicationProps> = (props) => {
+              return <>{getBook()} {getChapter()}
+              <table width='800'><tr><td width='45%' valign='top'>{leftBook.author} "{leftBook.title}"</td>
+                                     <td width='10%'></td>
+                                     <td width='45%' valign='top'>{rightBook.author} "{rightBook.title}"</td></tr>
+                     <tr><td>{leftChapter.title}</td><td width='10%'></td><td>{rightChapter.title}</td></tr>
+                     <tr><td valign='top' align='justify'>{leftChapter.txt}</td><td></td>
+                         <td  valign='top' align='justify'>{rightChapter.txt}</td></tr></table></>
    }
 
    return (
     <body>
       <header className="App-header">
-        <p>Header</p>
-        <div>
-             <button onClick={getParagraph1}>Параграф</button>
-        </div>
-        <div>
-             <button onClick={getParagraph17}>Параграф</button>
-        </div>
+        <p>Project - Library</p>
       </header>
       <main className="App-main">
-        <p>Main part</p>
-        <p>{<Par />}</p>
+        <p></p>
+        <p>{<MainTable />}</p>
       </main>
       <footer className="App-footer">
         <p>Footer part</p>
