@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Route, Routes, useParams} from "react-router-dom";
-import App from './components/App/App';
+import Tablets from './components/Tablets/Tablets';
 import Paragraphs from './components/Paragraphs/Paragraphs'
 
 interface IApplicationProps {}
@@ -20,9 +20,8 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     return <BrowserRouter>
                <Routes>
                <Route path='/' element={<Home />} />
-               <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<App />} />
-               <Route path='/pars/left/:left/right/:right' element={<Paragraphs />} />
-               <Route path='/app/id/:id' element={<App />} />
+               <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
+               <Route path='/app/id/:id' element={<Tablets />} />
                </Routes>
                </BrowserRouter>
 }
