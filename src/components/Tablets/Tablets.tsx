@@ -1,5 +1,5 @@
 import { Chapter, dummyCh, Book, dummyB} from './../Chapter'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import './App.css'
 import {instance} from './../AxiosInstance'
@@ -41,8 +41,10 @@ function Tablets() {
    function changeChapter(leftBook: number, rightBook: number, chapter: number): string
      {return "/lbid/"+leftBook+"/rbid/"+rightBook+"/chid/"+chapter}
 
-   const MainTable: React.FunctionComponent<IApplicationProps> = (props) => {
-              return <>{getBooks()} {getChapters()} {getBooksByLang(Number(LBId))}
+   useEffect( () => {getBooks(); getChapters(); getBooksByLang(Number(LBId))} )
+
+   const MainTable = () => {
+              return <>
               <table width='800'><tr><td width='45%' valign='top'>{leftBook.author} "{leftBook.title}"</td>
                                      <td width='10%'></td>
                                      <td width='45%' valign='top'>{rightBook.author} "{rightBook.title}"</td></tr>
@@ -66,7 +68,7 @@ function Tablets() {
       </header>
       <main className="App-main">
         <p></p>
-        <p>{<MainTable />}</p>
+        <p>{MainTable() }</p>
       </main>
       <footer className="App-footer">
         <p><Link to={changeChapter(Number(LBId), Number(RBId), Number(ChId)-1)}>  Previous .</Link>
