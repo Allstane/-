@@ -19,14 +19,14 @@ function Tablets() {
    const [enBook, setEnBook] = useState<Book>(dummyB)
 
    function getBooksByLang(book: number) {
-      instance.get<Book>('/book/'+Number(book)+'/language/3').then((response) => {console.log(response); setDeBook(response.data) } )
-      instance.get<Book>('/book/'+Number(book)+'/language/2').then((response) => {console.log(response); setRuBook(response.data) } )
-      instance.get<Book>('/book/'+Number(book)+'/language/1').then((response) => {console.log(response); setEnBook(response.data) } )
+      instance.get<Book>('/book/'+Number(book)+'/language/3').then((response) => {setDeBook(response.data) } )
+      instance.get<Book>('/book/'+Number(book)+'/language/2').then((response) => {setRuBook(response.data) } )
+      instance.get<Book>('/book/'+Number(book)+'/language/1').then((response) => {setEnBook(response.data) } )
    }
 
    function getBooks() {
-         instance.get<Book>('/book/'+Number(LBId)).then((response) => {console.log(response); setLeftBook(response.data) } )
-         instance.get<Book>('/book/'+Number(RBId)).then((response) => {console.log(response); setRightBook(response.data) } )
+         instance.get<Book>('/book/'+Number(LBId)).then((response) => {setLeftBook(response.data) } )
+         instance.get<Book>('/book/'+Number(RBId)).then((response) => {setRightBook(response.data) } )
    }
 
    function getChapters() {
@@ -46,19 +46,10 @@ function Tablets() {
               <table width='800'><tr><td width='45%' valign='top'></td>
                                      <td width='10%'></td>
                                      <td width='45%' valign='top'></td></tr>
-                     <tr><td>
-                     <p><Link to={changeLanguage(Number(deBook.id),Number(RBId),Number(ChId))}> Экземпляр на немецком </Link></p>
-                     <p><Link to={changeLanguage(Number(ruBook.id),Number(RBId),Number(ChId))}> Экземпляр на русском </Link></p>
-                     </td><td></td>
-                     <td>
-                     <p><Link to={changeLanguage(Number(LBId),Number(deBook.id),Number(ChId))}> Экземпляр на немецком </Link></p>
-                     <p><Link to={changeLanguage(Number(LBId),Number(ruBook.id),Number(ChId))}> Экземпляр на русском </Link></p>
-                     </td></tr>
-                     <tr><td align='right'><Link to={changeChapter(Number(LBId), Number(RBId), Number(ChId)-1)}>
-                                           <Button variant="contained">Previous</Button></Link></td>
+
+                     <tr><td align='right'><Button component={Link} to={changeChapter(Number(LBId), Number(RBId), Number(ChId)-1)} variant="contained">Previous</Button></td>
                          <td></td>
-                         <td align='left'><Link to={changeChapter(Number(LBId), Number(RBId), Number(ChId)+1)}>
-                                          <Button variant="contained">Next</Button></Link></td>
+                         <td align='left'><Button component={Link} to={changeChapter(Number(LBId), Number(RBId), Number(ChId)+1)} variant="contained">Next</Button></td>
                      </tr></table>
                     </>
    }
@@ -69,7 +60,7 @@ function Tablets() {
         <p>Project - Library: Chapters</p>
       </header>
       <main className="App-main">
-        {gridTablets(leftBook, rightBook, leftChapter, rightChapter, deBook.id, ruBook.id)}
+        {gridTablets(leftBook, rightBook, leftChapter, rightChapter, enBook.id, deBook.id, ruBook.id)}
         <p>{MainTable() }</p>
       </main>
       <footer className="App-footer"><p> </p>

@@ -5,9 +5,9 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import {Book, Chapter} from './../Chapter'
-import langLinks from './LanguageLinks'
 import {Link} from 'react-router-dom'
 import changeLanguage from './Tablets'
+import buttons from './LangButtons'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter: Chapter, rightChapter: Chapter,
-                                    deBook: number, ruBook: number) {
+                                    enBook: number, deBook: number, ruBook: number) {
   return (
     <Box sx={{ width: '60%' }}>
       <Grid container  justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -41,16 +41,10 @@ export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter
           <Item>{rightChapter.txt}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{langLinks(leftBook.id, rightBook.id, leftChapter.id, deBook, ruBook, false)}</Item>
+          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, enBook, ruBook, deBook, 2, false )}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{langLinks(leftBook.id, rightBook.id, leftChapter.id, deBook, ruBook, true)}</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item><Button variant="contained">Previous</Button></Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item><Button variant="contained">Next</Button></Item>
+          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, enBook, ruBook, deBook, 2, true )}</Item>
         </Grid>
       </Grid>
     </Box>

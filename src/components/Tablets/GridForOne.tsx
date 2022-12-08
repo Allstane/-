@@ -5,7 +5,6 @@ import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import {BookF} from './../Chapter'
-import langLinks from './LanguageLinks'
 import {Link} from 'react-router-dom'
 import changeLanguage from './Tablets'
 
@@ -24,14 +23,7 @@ export default function gridBook(book: BookF) {
         <Grid item xs={10   }>
           <Item>{book.book.title}</Item>
         </Grid>
-
-        {book.chapters.map(ch => <Grid item xs={10}><Item>{ch.txt}</Item></Grid>)}
-        <Grid item xs={6}>
-          <Item><Button variant="contained">Previous</Button></Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item><Button variant="contained">Next</Button></Item>
-        </Grid>
+        {book.chapters.map(ch => <Grid item xs={10}><Item>{ch.title}<br/>{ch.txt}</Item></Grid>)}
       </Grid>
     </Box>
   );
