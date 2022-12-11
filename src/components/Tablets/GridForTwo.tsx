@@ -39,10 +39,10 @@ export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter
           <Item>{rightChapter.txt}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{buttons(leftBook.id, rightBook.id, leftChapter.id, metabookF, 2, false)}</Item>
+          <Item>{buttons(leftBook.id, rightBook.id, leftChapter.id, metabookF, false)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, metabookF, 2, true)}</Item>
+          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, metabookF, true)}</Item>
         </Grid>
       </Grid>
     </Box>

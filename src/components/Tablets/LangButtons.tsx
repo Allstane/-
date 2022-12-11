@@ -6,12 +6,12 @@ import {Link} from 'react-router-dom'
 import {MetabookF} from './../data/Metabook'
 import {Book, dummyB} from './../data/Chapter'
 
-export default function buttons(leftBook: number, rightBook: number, chapter: number, metabookF: MetabookF, lang: number, lr: boolean) {
+export default function buttons(leftBook: number, rightBook: number, chapter: number, metabookF: MetabookF, lr: boolean) {
 
-const activeBooksLangs: Array<number> = metabookF.books.filter(book => book.is_ready && book.is_visible).map(book => book.language)
+const activeBooks: Array<Book> = metabookF.books.filter(book => book.is_ready && book.is_visible)
 
 function langLinks(leftBook: number, rightBook: number, chapter: number, newBook: number, lr: boolean)
-{let url = '';
+{let url = ''
     switch (lr){
      case false: {url = "/lbid/"+newBook+"/rbid/"+rightBook+"/chid/"+chapter; break}
      case true: {url = "/lbid/"+leftBook+"/rbid/"+newBook+"/chid/"+chapter} }
@@ -32,6 +32,15 @@ function language(lang: number): string {
  return result.title
 }
 
+function disabled(book: Book, lr: boolean) {
+let result: boolean = false
+switch (lr){
+     case false: {if (leftBook === book.id) result = true; break}
+     case true: {if (rightBook === book.id) result = true }
+}
+return result
+}
+
   return (
     <Box
       sx={{
@@ -44,8 +53,9 @@ function language(lang: number): string {
       }}
     >
       <ButtonGroup variant="text" aria-label="text button group">
-      {activeBooksLangs.map(lang => <Button component={Link}
-                                  to={langLinks(leftBook, rightBook, chapter, newBook(metabookF, lang), lr)}> {language(lang)} </Button>)}
+      {activeBooks.map(book => <Button component={Link} disabled={disabled(book, lr)}
+                               to={langLinks(leftBook, rightBook, chapter, newBook(metabookF, book.language), lr)}>
+                               {language(book.language)}  </Button>)}
       </ButtonGroup>
     </Box>
   );
