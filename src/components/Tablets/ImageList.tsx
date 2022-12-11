@@ -38,7 +38,7 @@ const itemData = [
   {
     img: './antic.jpeg',
     title: 'Antichrist',
-    link: '/lbid/1/rbid/2/chid/1'
+    link: '/lbid/2/rbid/1/chid/1'
   },
   {
     img: './nietzsche.jpeg',
@@ -48,7 +48,7 @@ const itemData = [
   {
     img: './zara.jpeg',
     title: 'Zarathustra',
-    link: '/book/3'
+    link: '/lbid/3/rbid/8/chid/1'
   },
   {
     img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',

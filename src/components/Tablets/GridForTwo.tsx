@@ -3,10 +3,8 @@ import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import {Book, Chapter} from './../Chapter'
-import {Link} from 'react-router-dom'
-import changeLanguage from './Tablets'
+import {Book, Chapter} from './../data/Chapter'
+import {MetabookF} from './../data/Metabook'
 import buttons from './LangButtons'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -18,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter: Chapter, rightChapter: Chapter,
-                                    enBook: number, deBook: number, ruBook: number) {
+                                    metabookF: MetabookF) {
   return (
     <Box sx={{ width: '60%' }}>
       <Grid container  justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -41,10 +39,10 @@ export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter
           <Item>{rightChapter.txt}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, enBook, ruBook, deBook, 2, false )}</Item>
+          <Item>{buttons(leftBook.id, rightBook.id, leftChapter.id, metabookF, 2, false)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, enBook, ruBook, deBook, 2, true )}</Item>
+          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, metabookF, 2, true)}</Item>
         </Grid>
       </Grid>
     </Box>
