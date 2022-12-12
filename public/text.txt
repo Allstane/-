@@ -1,5 +1,0 @@
-
-        <Button component={Link} to={langLinks(leftBook, rightBook, chapter, newBook(metabookF, 1), lr)}> {language(lang).english} </Button>
-        <Button component={Link} to={langLinks(leftBook, rightBook, chapter, newBook(metabookF, 2), lr)}>{language(lang).russian}</Button>
-        <Button component={Link} to={langLinks(leftBook, rightBook, chapter, newBook(metabookF, 3), lr)}>{language(lang).german}</Button>
-        <Button component={Link} to={langLinks(leftBook, rightBook, chapter, newBook(metabookF, 4), lr)}>{language(lang).french}</Button>

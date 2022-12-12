@@ -48,7 +48,7 @@ const itemData = [
   {
     img: './zara.jpeg',
     title: 'Zarathustra',
-    link: '/lbid/3/rbid/8/chid/1'
+    link: '/lbid/3/rbid/8/chid/3'
   },
   {
     img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
@@ -56,13 +56,13 @@ const itemData = [
     link: '/'
   },
   {
-    img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-    title: 'Mushrooms',
-    link: '/'
+    img: './ecce.jpg',
+    title: 'Ecce homo',
+    link: '/lbid/11/rbid/12/chid/2'
   },
   {
-    img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-    title: 'Tomato basil',
-    link: '/'
+    img: './4.jpg',
+    title: 'Beyond good and evil',
+    link: '/lbid/7/rbid/9/chid/3'
   }
 ];
