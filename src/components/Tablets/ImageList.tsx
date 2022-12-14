@@ -23,17 +23,17 @@ const itemData = [
   {
     img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
     title: 'Breakfast',
-    link: '/'
+    link: '/lbid/10/rbid/10/chid/2'
   },
   {
     img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
     title: 'Burger',
-    link: '/'
+    link: '/lbid/15/rbid/15/chid/3'
   },
   {
     img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
     title: 'Camera',
-    link: '/'
+    link: '/lbid/16/rbid/16/chid/2'
   },
   {
     img: './antic.jpeg',
@@ -53,7 +53,7 @@ const itemData = [
   {
     img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
     title: 'Fern',
-    link: '/'
+    link: '/lbid/14/rbid/14/chid/2'
   },
   {
     img: './ecce.jpg',

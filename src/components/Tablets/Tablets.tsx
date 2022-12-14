@@ -1,6 +1,6 @@
 import { Chapter, dummyCh, Book, dummyB} from './../data/Chapter'
 import {MetabookF, dummyMF} from './../data/Metabook'
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import './App.css'
 import {instance} from './../AxiosInstance'
@@ -10,21 +10,14 @@ import gridTablets from './GridForTwo'
 function Tablets() {
 
    const {ChId, LBId, RBId} = useParams();
-   const [leftBook, setLeftBook] = useState<Book>(dummyB)
-   const [rightBook, setRightBook] = useState<Book>(dummyB)
    const [leftChapter, setLeftChapter] = useState<Chapter>(dummyCh)
    const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
    const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
 
-   useEffect( () => {getBooks(); getMetabookF(); getChapters() } )
+   useEffect( () => {getMetabookF(); getChapters() } )
 
    function getMetabookF() {
          instance.get<MetabookF>('/metabookF/'+Number(LBId)).then((response) => {setMetabookF(response.data) } )
-   }
-
-   function getBooks() {
-         instance.get<Book>('/book/'+Number(LBId)).then((response) => {setLeftBook(response.data) } )
-         instance.get<Book>('/book/'+Number(RBId)).then((response) => {setRightBook(response.data) } )
    }
 
    function getChapters() {
@@ -34,6 +27,12 @@ function Tablets() {
 
    function changeChapter(leftBook: number, rightBook: number, chapter: number): string
      {return "/lbid/"+leftBook+"/rbid/"+rightBook+"/chid/"+chapter}
+
+
+   function findBook(metabookF: MetabookF, bookId: number): Book {
+      const book: Book = metabookF.books.find(book => book.id === bookId) ?? dummyB
+      return book
+    }
 
    const MainTable = () => {
       return <>
@@ -57,7 +56,8 @@ function Tablets() {
         <p>Project - Library: Chapters</p>
       </header>
       <main className="App-main">
-        {gridTablets(leftBook, rightBook, leftChapter, rightChapter, metabookF)}
+        {gridTablets(findBook(metabookF, Number(LBId)), 
+                     findBook(metabookF, Number(RBId)), leftChapter, rightChapter, metabookF)}
         <p>{MainTable() }</p>
       </main>
       <footer className="App-footer"><p> </p>
