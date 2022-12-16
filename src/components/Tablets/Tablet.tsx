@@ -5,6 +5,7 @@ import './App.css'
 import {instance} from './../AxiosInstance'
 import gridBook from './GridForOne'
 
+
 function Tablet() {
 
    const {bid} = useParams();
