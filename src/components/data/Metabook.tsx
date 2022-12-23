@@ -15,3 +15,6 @@ export type MetabookF = {
 
 export const dummyM = {id: 0, author: 0, language: 0, title: '', create_date: 0}
 export const dummyMF =  {metabook: dummyM, books: []}
+
+export type Metalibrary = Metabook[]
+export const dummyML = []

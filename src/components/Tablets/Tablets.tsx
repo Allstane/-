@@ -2,7 +2,7 @@ import { Chapter, dummyCh, Book, dummyB} from './../data/Chapter'
 import {MetabookF, dummyMF} from './../data/Metabook'
 import {useState, useEffect} from 'react'
 import {useParams, Link} from 'react-router-dom'
-import './App.css'
+import './../App.css'
 import {instance} from './../AxiosInstance'
 import Button from '@mui/material/Button';
 import gridTablets from './GridForTwo'

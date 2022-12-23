@@ -28,3 +28,6 @@ export type BookF = {
 export const dummyB: Book = {id: 0, metabook: 0, language: 0, title: '', author: '', translation_date: 0,
                              translator: 0, is_ready: false, is_visible: false }
 export const dummyBF: BookF = {book: dummyB, chapters: []}
+
+export type Library = { library: Array<Book>; }
+export const dummyL: Library = {library: []}
