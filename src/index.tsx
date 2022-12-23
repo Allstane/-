@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Tablets from './components/Tablets/Tablets';
 import Tablet from './components/Tablets/Tablet';
 import Nietzsche from './components/Tablets/Nietzsche'
+import Private from './components/private/Private'
 
 interface IApplicationProps {}
 
@@ -12,6 +13,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     return <BrowserRouter>
                <Routes>
                <Route path='/' element={<Nietzsche />} />
+               <Route path='/private' element={<Private />} />
                <Route path='book/:bid' element={<Tablet />} />
                <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
                </Routes>

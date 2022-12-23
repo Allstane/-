@@ -1,4 +1,4 @@
-import './App.css'
+import './../App.css'
 import Images from './ImageList'
 
 export default function Nietzsche() {
