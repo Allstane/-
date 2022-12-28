@@ -9,14 +9,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import { TransitionProps } from '@mui/material/transitions';
+import {TransitionProps} from '@mui/material/transitions';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
-import {Chapter} from './data/Chapter'
-import {instance} from './AxiosInstance'
-import Tablets from './Tablets/Tablets'
+import {Chapter} from './../data/Chapter'
+import {instance} from './../AxiosInstance'
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -27,7 +26,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullDialog(chapter: Chapter, lr: boolean) {
+export default function EditChapter(chapter: Chapter, lr: boolean) {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = useState('');
 

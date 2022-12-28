@@ -6,7 +6,6 @@ import Box from '@mui/material/Box'
 import {Book, Chapter} from './../data/Chapter'
 import {MetabookF} from './../data/Metabook'
 import buttons from './LangButtons'
-import FullDialog from './../Dialog'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -34,10 +33,10 @@ export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter
           <Item>{rightChapter.title}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{leftChapter.txt}<br/>{FullDialog(leftChapter, false)}</Item>
+          <Item>{leftChapter.txt}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{rightChapter.txt}<br/>{FullDialog(rightChapter, true)}</Item>
+          <Item>{rightChapter.txt}</Item>
         </Grid>
         <Grid item xs={6}>
           <Item>{buttons(leftBook.id, rightBook.id, leftChapter.id, metabookF, false)}</Item>
