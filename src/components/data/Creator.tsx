@@ -1,6 +1,8 @@
 export type Creator = {
   id: number;
-  original_name: string;
+  english_name: string;
+  russian_name: string;
+  german_name: string;
   original_language: number;
   birth_date: number;
   death_date: number;
@@ -9,4 +11,9 @@ export type Creator = {
 }
 
 export const dummyC: Creator =
-  {id: 0, original_name: '', original_language: 1, birth_date: 0, death_date: 0, is_author: false, is_translator: false}
+  {id: 0, english_name: '', russian_name: '', german_name: '', original_language: 1,
+   birth_date: 0, death_date: 0, is_author: false, is_translator: false}
+
+export type People = {people: Array<Creator>}
+
+export const dummyP = {people: []}
