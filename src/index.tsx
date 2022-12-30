@@ -8,6 +8,7 @@ import Nietzsche from './components/Tablets/Nietzsche'
 import Private from './components/private/Private'
 import Admin from './components/private/Admin'
 import LoadBook from './components/private/LoadBook'
+import Adds from './components/private/Adds'
 
 interface IApplicationProps {}
 
@@ -16,7 +17,8 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                <Routes>
                <Route path='/' element={<Nietzsche />} />
                <Route path='/private' element={<Private />} />
-               <Route path='/private/:token' element={<LoadBook />} />
+               <Route path='/private/:token/' element={<Adds />} />
+               <Route path='/private/:token/:bId/load' element={<LoadBook />} />
                <Route path='/private/:token/:bId' element={<Admin />} />
                <Route path='book/:bid' element={<Tablet />} />
                <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
