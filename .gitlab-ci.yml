@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+
+build-front:
+  stage: build
+  image: node:latest
+  cache: []
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    name: "$CI_COMMIT_REF_NAME"
+    paths:
+      - build
+    expire_in: 24h
+
+deploy-front:
+  stage: deploy
+  image: ubuntu:latest
+  dependencies:
+    - build-front
+  before_script:
+    - 'which ssh-agent || ( apt update; apt install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$DEPLOY_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - scp build/* ${DEPLOY_USER}@${DEPLOY_HOST}:/var/www/html/
+  when: manual
