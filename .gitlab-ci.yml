@@ -28,5 +28,5 @@ deploy-front:
     - chmod 700 ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-    - scp build/* ${DEPLOY_USER}@${DEPLOY_HOST}:/var/www/html/
+    - scp -r build/* ${DEPLOY_USER}@${DEPLOY_HOST}:/var/www/html/
   when: manual
