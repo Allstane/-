@@ -28,6 +28,8 @@ deploy-front:
     - chmod 700 ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
+    - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "sudo systemctl stop serve"
+    - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "sudo rm -rf /opt/library-front/*"
     - scp -r build/* ${DEPLOY_USER}@${DEPLOY_HOST}:/opt/library-front/
-    - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "sudo systemctl restart serve"
+    - ssh ${DEPLOY_USER}@${DEPLOY_HOST} "sudo systemctl start serve"
   when: manual
