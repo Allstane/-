@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {useParams, Link} from 'react-router-dom'
 import './../App.css'
 import {instance} from './../AxiosInstance'
-import {Chapter} from './../data/Chapter'
+import {Chapter, BookF, dummyB} from './../data/Chapter'
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button';
@@ -12,9 +12,9 @@ export default function LoadBook() {
    const {token, bId} = useParams()
    const [rawBook, setRawBook] = useState<string>('')
 
-  function insertChapter(ch: Chapter) {
-      const json = JSON.stringify(ch)
-      instance.post('/admin/insertChapter', json, {headers: {'Content-Type': 'application/json'}})
+  function insertBookF(bF: BookF) {
+      const json = JSON.stringify(bF)
+      instance.post('/admin/insertBookF', json)
     }
 
    function MinHeightTextarea() {
@@ -46,7 +46,7 @@ export default function LoadBook() {
       console.log('In outer we have ' + chs.length + ' chapter.')
      }
      else res = res + 'not right. |-s: ' + nSticks + ', {-s: ' + nBrackets + '.'
-     if (isSave) chs.map(ch => insertChapter(ch))
+     if (isSave) { const bookF: BookF = {book: dummyB, chapters: chs}; insertBookF(bookF) }
      return res + ' Number of parsed chapters is ' + chs.length + '.'
    }
 
