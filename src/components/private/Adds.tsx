@@ -188,15 +188,20 @@ function GetBooks(library: Library, token: string) {
 
   function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id) }
 
-  const bookLink = (token: string, id: number) => "/private/"+token+"/"+id+"/load"
+  const bookAddLink = (token: string, id: number) => "/private/"+token+"/"+id+"/load"
+
+  const bookTextLink = (token: string, id: number) => "/private/"+token+"/"+id
 
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
         {library.library.map(b =>
         <Grid item xs={12} >
-        <Item><Link to={bookLink(token, b.id)}> {b.id} "{b.title}" {b.author}</Link><DeleteIcon onClick={()=>deleteBook(b.id) } />
-         <br/> Метакнига: {b.metabook}, язык: {b.language}
+        <Item> Название книги: {b.title}.<br/> Автор: {b.author}.<br/> Метакнига: {b.metabook}.<br/> Язык: {b.language}<br/>
+         <Link to={bookAddLink(token, b.id)}>Добавить текст, если его нет</Link>
+          <br/>
+         <Link to={bookTextLink(token, b.id)}>Посмотреть текст, если есть</Link> <br/>
+         <DeleteIcon onClick={()=>deleteBook(b.id) } />
         </Item> </Grid>)}
       </Grid>
     </Box>

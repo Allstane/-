@@ -37,7 +37,7 @@ export default function Private() {
    const {token, bId} = useParams();
    const [book, setBook] = useState<BookF>(dummyBF)
 
-   const getBook = () => { instance.get<BookF>('/bookF/'+Number(1)).then((b) => {setBook(b.data) } )}
+   const getBook = () => { instance.get<BookF>('/bookF/'+Number(bId)).then((b) => {setBook(b.data) } )}
 
    useEffect( () => getBook() )
 
