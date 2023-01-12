@@ -14,8 +14,7 @@ function Tablets() {
    const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
    const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
 
-   useEffect( () => {getMetabookF(); getChapters() } )
-
+   useEffect( () => {getMetabookF(); getChapters() }, [ChId, LBId, RBId] )
    function getMetabookF() {
          instance.get<MetabookF>('/metabookF/'+Number(LBId)).then((response) => {setMetabookF(response.data) } )
    }
@@ -51,18 +50,18 @@ function Tablets() {
    }
 
    return (
-    <body>
+    <>
       <header className="App-header">
         <p>Project - Library: Chapters</p>
       </header>
       <main className="App-main">
         {gridTablets(findBook(metabookF, Number(LBId)), 
                      findBook(metabookF, Number(RBId)), leftChapter, rightChapter, metabookF)}
-        <p>{MainTable() }</p>
+        <MainTable/>
       </main>
       <footer className="App-footer"><p> </p>
       </footer>
-    </body>
+    </>
     );
 }
 export default Tablets;
