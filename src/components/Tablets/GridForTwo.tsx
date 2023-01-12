@@ -16,7 +16,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter: Chapter, rightChapter: Chapter,
-                                    metabookF: MetabookF) {
+                                    metabookF: MetabookF, chId: number) {
+
   return (
     <Box sx={{ width: '60%' }}>
       <Grid container  justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -39,10 +40,10 @@ export default function gridTablets(leftBook: Book, rightBook: Book, leftChapter
           <Item>{rightChapter.txt}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{buttons(leftBook.id, rightBook.id, leftChapter.id, metabookF, false)}</Item>
+          <Item>{buttons(leftBook.id, rightBook.id, chId, metabookF, false)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>{buttons( leftBook.id, rightBook.id, leftChapter.id, metabookF, true)}</Item>
+          <Item>{buttons( leftBook.id, rightBook.id, chId, metabookF, true)}</Item>
         </Grid>
       </Grid>
     </Box>

@@ -48,7 +48,7 @@ function Tablets() {
       </table>
             </>
    }
-
+console.log(leftChapter.id + ' ' + rightChapter.id + ' ' + ChId)
    return (
     <>
       <header className="App-header">
@@ -56,7 +56,7 @@ function Tablets() {
       </header>
       <main className="App-main">
         {gridTablets(findBook(metabookF, Number(LBId)), 
-                     findBook(metabookF, Number(RBId)), leftChapter, rightChapter, metabookF)}
+                     findBook(metabookF, Number(RBId)), leftChapter, rightChapter, metabookF, Number(ChId)  )}
         <MainTable/>
       </main>
       <footer className="App-footer"><p> </p>
