@@ -13,15 +13,17 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function gridBook(book: BookF) {
+const GridBook = ({book, chapters}: BookF) => {
   return (
     <Box sx={{ width: '60%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        <Grid item xs={10   }>
-          <Item>{book.book.title}</Item>
+        <Grid item xs={10}>
+          <Item>{book.title}</Item>
         </Grid>
-        {book.chapters.map(ch => <Grid item xs={10}><Item>{ch.title}<br/>{ch.txt}</Item></Grid>)}
+        {chapters.map((ch: any, idx: number) => <Grid key={idx} item xs={10}><Item>{ch.title}<br/>{ch.txt}</Item></Grid>)}
       </Grid>
     </Box>
   );
 }
+
+export default GridBook
