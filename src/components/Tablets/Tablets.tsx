@@ -48,7 +48,7 @@ function Tablets() {
       </table>
             </>
    }
-console.log(leftChapter.id + ' ' + rightChapter.id + ' ' + ChId)
+
    return (
     <>
       <header className="App-header">
