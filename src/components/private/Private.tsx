@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-import {useParams} from 'react-router-dom'
+import React from 'react'
 import './../App.css'
 import {instance} from './../AxiosInstance'
 import Avatar from '@mui/material/Avatar';
@@ -15,7 +14,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {User, Token} from './../data/User'
+import {User} from './../data/User'
 import {useNavigate} from "react-router-dom";
 
 function Login(props: any) {
@@ -37,11 +36,10 @@ function SignIn() {
   const navigate = useNavigate();
 
   function getToken(l: string, p: string) {
-    const user: User = {login: l, password: p}
+    const user: User = {id: 0, login: l, password: p, token: '', role: ''}
     const json = JSON.stringify(user)
-    console.log('Json chapter = ' + json)
-    instance.post<Token>('/auth', json, {headers: {'Content-Type': 'application/json'}})
-    .then(t => { console.log(t.data); navigate("/private/"+t.data.value); })
+    instance.post<User>('/auth', json, {headers: {'Content-Type': 'application/json'}})
+    .then(u => { navigate("/private/"+u.data.token); })
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -124,9 +122,6 @@ function SignIn() {
 }
 
 export default function Private() {
-
-   const {bid} = useParams();
-   const [token, setToken] = useState<string>('')
 
    return (
     <body>

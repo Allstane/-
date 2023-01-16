@@ -42,24 +42,26 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Workspace(token: string = '') {
 
+  const headers = {headers: {'Authorization': token}};
+
   const [people, setPeople] = useState<People>(dummyP);
   const getCreators = () => { instance.get<People>('/admin/getCreators').then((p) => {setPeople(p.data) } ) }
 
   const [library, setLibrary] = useState<Library>(dummyL);
-  const getLibrary = () => { instance.get<Library>('/admin/getBooks').then((l) => {setLibrary(l.data) } ) }
+  const getLibrary = () => { instance.get<Library>('/admin/booksC', headers).then((l) => {setLibrary(l.data) } ) }
 
   const [metalibrary, setMetalibrary] = useState<Metalibrary>([]);
   const getMetalibrary = () => { instance.get<Metalibrary>('/admin/getMetabooks').then((ml) => {setMetalibrary(ml.data) } ) }
 
-  useEffect( () => getCreators() )
-  useEffect( () => getLibrary() )
-  useEffect( () => getMetalibrary() )
+  useEffect( () => getCreators(), [] )
+  useEffect( () => getLibrary(), [] )
+  useEffect( () => getMetalibrary(), [] )
 
   return (
-    <Box sx={{ width: '60%' }}>
+    <Box sx={{ width: '90%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
         <Grid item xs={6}>
-          <Item>Вставка книги {AddBook(people, metalibrary)}</Item>
+          <Item>Вставка книги {AddBook(people, metalibrary, headers)}</Item>
         </Grid>
         <Grid item xs={6}>
           <Item>Все книги {GetBooks(library, token)}</Item>
@@ -84,31 +86,28 @@ function Workspace(token: string = '') {
 function AddCreator() {
 
   const [name, setName] = useState('');
-  const [original_language, setLang] = useState(0);
+  const [lang, setLang] = useState(1);
 
   function createAuthor() {
       const c: Creator =
-      {id: 0, english_name: name, russian_name: '', german_name: '', original_language: original_language, birth_date: 0,
+      {id: 0, english_name: name, russian_name: '', german_name: '', original_language: lang, birth_date: 0,
        death_date: 0, is_author: true, is_translator: false}
       const json = JSON.stringify(c)
-      instance.post('/admin/insertCreator', json)
-    }
+      console.log('Send a creator to backend for saving: ' + json)
+      instance.post('/admin/insertCreator', json).then(r => { console.log('Response from backend after sending a creator: ' + r.data)
+                                                                              if (r.data === 1) {alert('Creator is created.')}
+                                                                                             } ) }
 
-  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
-  };
+  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setName(event.target.value)};
 
   const handleChangeLang = (event: SelectChangeEvent<number>) =>  { setLang(Number(event.target.value)) }
 
   return (
-    <Box
-      component="form"
-      noValidate
-      autoComplete="off"   >
+    <Box component="form" noValidate  autoComplete="off"   >
       <div><Button  onClick={()  => {createAuthor()}}> Сохранить автора  </Button></div>
       <div> <TextField id="name" label="Имя автора" multiline maxRows={4} onChange={handleChangeName} />  </div>
       <div>
-         <Select id="original_language" label="Оригинальный язык" defaultValue={1} onChange={handleChangeLang}>
+         <Select id="original_language" label="Оригинальный язык" value={lang} onChange={handleChangeLang}>
            <MenuItem value={1}>Английский</MenuItem>
            <MenuItem value={2}>Русский</MenuItem>
            <MenuItem value={3}>Немецкий</MenuItem>
@@ -120,7 +119,10 @@ function AddCreator() {
 
 function GetCreators(people: People) {
 
-  function deleteCreator(id: number) { instance.delete('/admin/deleteCreator/' + id) }
+  function deleteCreator(id: number) { instance.delete('/admin/deleteCreator/' + id)
+                              .then(r => { console.log('Response from backend after deleting a creator: ' + r.data)
+                                    if (r.data === 1) {alert('Creator is deleted.')}
+                                      } ) }
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -130,29 +132,28 @@ function GetCreators(people: People) {
     </Box>
   );}
 
-function AddBook(people: People, ml: Metalibrary) {
+function AddBook(people: People, ml: Metalibrary, headers: any) {
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [language, setLang] = useState(0);
-  const [metabook, setMetabook] = useState(0);
+  const [lang, setLang] = useState(1);
+  const [metabook, setMetabook] = useState(1);
 
   function createBook() {
       const b: Book =
-      {id: 0, metabook: metabook, language: language, title: title, author: author, translation_date: 0,
+      {id: 0, metabook: metabook, language: lang, title: title, author: author, translation_date: 0,
                                    translator: 1, is_ready: false, is_visible: false }
       const json = JSON.stringify(b)
-      console.log(json)
-      instance.post('/admin/insertBook', json, {headers: {'Content-Type': 'application/json'}})
-    }
+      console.log('Send a book to backend for saving: ' + json)
+      instance.post('/admin/insertBook', json, headers).then(r => { console.log('Response from backend after sending a book: ' + r.data)
+                                                                                    if (r.data === 1) {alert('Book is created.')}
+                                                                                                   } ) }
 
-  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
-  };
+  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value)};
+
+  const handleChangeAuthor = (event:React.ChangeEvent<HTMLInputElement>) => { setAuthor(event.target.value) }
 
   const handleChangeLang = (event: SelectChangeEvent<number>) =>  { setLang(Number(event.target.value)) }
-
-  const handleChangeAuthor = (event: SelectChangeEvent<string>) =>  { setAuthor(event.target.value) }
 
   const handleChangeMetabook = (event: SelectChangeEvent<number>) =>  { setMetabook(Number(event.target.value)) }
 
@@ -162,17 +163,13 @@ function AddBook(people: People, ml: Metalibrary) {
       noValidate
       autoComplete="off"   >
       <div><Button  onClick={()  => {createBook()}}> Сохранить книгу  </Button></div>
-      <div>  <TextField id="title" label="Название книги" multiline maxRows={4} onChange={handleChangeName} /> </div>
+      <div><TextField id="title" label="Название книги" multiline maxRows={4} onChange={handleChangeName} /> </div>
+      <div><TextField id="author" label="Автор" multiline maxRows={4} onChange={handleChangeAuthor} /> </div>
       <div>
-         <Select id="language" label="Оригинальный язык" defaultValue={1} onChange={handleChangeLang}>
+         <Select id="language" label="Оригинальный язык" value={lang} onChange={handleChangeLang}>
            <MenuItem value={1}>Английский</MenuItem>
            <MenuItem value={2}>Русский</MenuItem>
            <MenuItem value={3}>Немецкий</MenuItem>
-           </Select>
-      </div>
-      <div>
-         <Select id="author" label="Автор" value ={author} onChange={handleChangeAuthor}>
-           {people.people.map(c => <MenuItem value={c.english_name}> {c.english_name}</MenuItem> )}
            </Select>
       </div>
       <div>
@@ -186,7 +183,9 @@ function AddBook(people: People, ml: Metalibrary) {
 
 function GetBooks(library: Library, token: string) {
 
-  function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id) }
+  function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id).then(r => { console.log('Response from backend after deleting of a book: ' + r.data)
+                                                                                                      if (r.data === 1) {alert('Book is deleted.')}
+                                                                                                               } ) }
 
   const bookAddLink = (token: string, id: number) => "/private/"+token+"/"+id+"/load"
 
@@ -210,14 +209,16 @@ function GetBooks(library: Library, token: string) {
 function AddMetabook(people: People) {
 
   const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState(0)
-  const [language, setLang] = useState(0);
+  const [author, setAuthor] = useState(1)
+  const [lang, setLang] = useState(1);
 
   function createMetabook() {
-      const m: Metabook = {id: 0, author: author, language: language, title: title, create_date: 0}
+      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0}
       const json = JSON.stringify(m)
-      instance.post('/admin/insertMetabook', json)
-    }
+      instance.post('/admin/insertMetabook', json).then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
+                                                                               if (r.data === 1) {alert('Metabook is created.')}
+                                                                                              } ) }
+
 
   const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) };
 
@@ -230,14 +231,14 @@ function AddMetabook(people: People) {
       <div><Button  onClick={()  => {createMetabook()}}> Сохранить метакнигу  </Button></div>
       <div><TextField id="title" label="Название метакниги" multiline maxRows={4} onChange={handleChangeTitle} /> </div>
       <div>
-         <Select id="language" label="Язык метакниги" defaultValue={1} onChange={handleChangeLang}>
+         <Select id="language" label="Язык метакниги" value={lang} onChange={handleChangeLang}>
            <MenuItem value={1}>Английский</MenuItem>
            <MenuItem value={2}>Русский</MenuItem>
            <MenuItem value={3}>Немецкий</MenuItem>
            </Select>
       </div>
       <div>
-         <Select id="author" label="Автор метакниги" defaultValue={0} onChange={handleChangeAuthor}>
+         <Select id="author" label="Автор метакниги" value={author} onChange={handleChangeAuthor}>
            {people.people.map(c => <MenuItem value={c.id}> {c.english_name}</MenuItem> )}
            </Select>
       </div>
@@ -247,7 +248,10 @@ function AddMetabook(people: People) {
 
 function GetMetabooks(ml: Metalibrary, token: string) {
 
-  function deleteMetabook(id: number) { instance.delete('/admin/deleteMetabook/' + id) }
+  function deleteMetabook(id: number) { instance.delete('/admin/deleteMetabook/' + id)
+                             .then(r => { console.log('Response from backend after deleting a metabook: ' + r.data)
+                             if (r.data === 1) {alert('Metabook is deleted.')}
+                                            } ) }
 
   return (
     <Box sx={{ width: '100%' }}>
