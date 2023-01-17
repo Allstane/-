@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'justify',
   color: theme.palette.text.secondary,
-}));
+}))
 
 function GridEditableBook(book: BookF) {
   return (
@@ -29,12 +29,12 @@ function GridEditableBook(book: BookF) {
                                    <Grid item xs={2 }><Item>Edit</Item></Grid></>)}
       </Grid>
     </Box>
-  );
+  )
 }
 
 export default function Private() {
 
-   const {token, bId} = useParams();
+   const {token, bId} = useParams()
    const [book, setBook] = useState<BookF>(dummyBF)
 
    const getBook = () => { instance.get<BookF>('/bookF/'+Number(bId)).then((b) => {setBook(b.data) } )}
@@ -52,5 +52,5 @@ export default function Private() {
       <footer className="App-footer">
       </footer>
     </body>
-    );
+    )
 }

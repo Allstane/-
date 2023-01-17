@@ -11,7 +11,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'justify',
   color: theme.palette.text.secondary,
-}));
+}))
 
 export default function gridBookAdmin(book: BookF) {
   return (
@@ -23,5 +23,5 @@ export default function gridBookAdmin(book: BookF) {
         {book.chapters.map(ch => <Grid item xs={10}><Item>{ch.title}<br/>{ch.txt}</Item></Grid>)}
       </Grid>
     </Box>
-  );
+  )
 }

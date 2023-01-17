@@ -3,9 +3,9 @@ import {useParams, Link} from 'react-router-dom'
 import './../App.css'
 import {instance} from './../AxiosInstance'
 import {Chapter, BookF, dummyB} from './../data/Chapter'
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import TextareaAutosize from '@mui/material/TextareaAutosize'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
 
 
 export default function LoadBook() {
@@ -24,7 +24,7 @@ export default function LoadBook() {
      return (
        <TextareaAutosize name="rawBook" minRows={10} placeholder="Text of a book" style={{ width: 800 }}
          onChange={(e) => {setRawBook(e.target.value) }}/>
-     );
+     )
    }
 
    function TypographyTheme() {
@@ -40,7 +40,7 @@ export default function LoadBook() {
      const nBrackets: number = book.split('{').length - 1
      let res = 'Number of |-s and {-s is '
      if (nSticks === nBrackets - 1) {
-       res = res + 'right.';
+       res = res + 'right.'
        for (let i = 1; i <= nSticks; i++) {
          const ch: Chapter = parseChapter(text, i, Number(bId))
          chs.push(ch)
@@ -80,6 +80,6 @@ export default function LoadBook() {
       <footer className="App-footer">
       </footer>
     </body>
-    );
+    )
 }
 

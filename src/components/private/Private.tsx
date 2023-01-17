@@ -1,21 +1,21 @@
 import React from 'react'
 import './../App.css'
 import {instance} from './../AxiosInstance'
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {User} from './../data/User'
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom"
 
 function Login(props: any) {
   return (
@@ -27,19 +27,19 @@ function Login(props: any) {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
-const theme = createTheme();
+const theme = createTheme()
 
 function SignIn() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function getToken(l: string, p: string) {
     const user: User = {id: 0, login: l, password: p, token: '', role: ''}
     const json = JSON.stringify(user)
     instance.post<User>('/auth', json, {headers: {'Content-Type': 'application/json'}})
-    .then(u => { navigate("/private/"+u.data.token); })
+    .then(u => { navigate("/private/"+u.data.token) })
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -118,7 +118,7 @@ function SignIn() {
         <Login sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-  );
+  )
 }
 
 export default function Private() {
@@ -134,5 +134,5 @@ export default function Private() {
       <footer className="App-footer">
       </footer>
     </body>
-    );
+    )
 }

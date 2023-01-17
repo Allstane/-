@@ -1,6 +1,6 @@
-import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import * as React from 'react'
+import ImageList from '@mui/material/ImageList'
+import ImageListItem from '@mui/material/ImageListItem'
 
 export default function Imagest() {
   return (
@@ -16,7 +16,7 @@ export default function Imagest() {
         </ImageListItem>
       ))}
     </ImageList>
-  );
+  )
 }
 
 const itemData = [
@@ -65,4 +65,4 @@ const itemData = [
     title: 'Beyond good and evil',
     link: '/lbid/7/rbid/9/chid/3'
   }
-];
+]
