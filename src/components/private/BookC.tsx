@@ -15,7 +15,7 @@ export default function BookC() {
 
    const getBookC = () => { instance.get<BookF>('/admin/bookFC/'+Number(bId)).then((b) => {console.log(b); setBookF(b.data) } ) }
 
-   useEffect( () => getBookC() )
+   useEffect( () => getBookC(), [])
 
    return (
     <body>

@@ -13,9 +13,12 @@ export default function LoadBook() {
    const [rawBook, setRawBook] = useState<string>('')
 
   function insertBookF(bF: BookF) {
+
       const json = JSON.stringify(bF)
-      instance.post('/admin/insertBookF', json)
-    }
+      const headers = {headers: {'Content-Type': 'multipart/form-data', 'Content-Length': json.length}};
+      instance.post('/admin/insertBookF', json, headers).then(r => { console.log('Response from backend after sending a bookF: ' + r.data)
+                                                        if (r.data === 1) {alert('Book is created.')}
+                                                                                                   } ) }
 
    function MinHeightTextarea() {
      return (
