@@ -11,7 +11,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'justify',
   color: theme.palette.text.secondary,
-}));
+}))
 
 const GridBook = ({book, chapters}: BookF) => {
   return (
@@ -23,7 +23,7 @@ const GridBook = ({book, chapters}: BookF) => {
         {chapters.map((ch: any, idx: number) => <Grid key={idx} item xs={10}><Item>{ch.title}<br/>{ch.txt}</Item></Grid>)}
       </Grid>
     </Box>
-  );
+  )
 }
 
 export default GridBook

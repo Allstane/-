@@ -1,12 +1,12 @@
 export type Creator = {
-  id: number;
-  english_name: string;
-  russian_name: string;
-  german_name: string;
-  original_language: number;
-  birth_date: number;
-  death_date: number;
-  is_author: boolean;
+  id: number
+  english_name: string
+  russian_name: string
+  german_name: string
+  original_language: number
+  birth_date: number
+  death_date: number
+  is_author: boolean
   is_translator: boolean
 }
 

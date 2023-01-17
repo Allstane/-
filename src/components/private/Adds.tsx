@@ -12,8 +12,8 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function Adds() {
    const {token} = useParams()
@@ -29,7 +29,7 @@ export default function Adds() {
       <footer className="App-footer">
       </footer>
     </body>
-    );
+    )
 }
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -38,19 +38,19 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'justify',
   color: theme.palette.text.secondary,
-}));
+}))
 
 function Workspace(token: string = '') {
 
-  const headers = {headers: {'Authorization': token}};
+  const headers = {headers: {'Authorization': token}}
 
-  const [people, setPeople] = useState<People>(dummyP);
+  const [people, setPeople] = useState<People>(dummyP)
   const getCreators = () => { instance.get<People>('/admin/getCreators').then((p) => {setPeople(p.data) } ) }
 
-  const [library, setLibrary] = useState<Library>(dummyL);
+  const [library, setLibrary] = useState<Library>(dummyL)
   const getLibrary = () => { instance.get<Library>('/admin/booksC', headers).then((l) => {setLibrary(l.data) } ) }
 
-  const [metalibrary, setMetalibrary] = useState<Metalibrary>([]);
+  const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
   const getMetalibrary = () => { instance.get<Metalibrary>('/admin/getMetabooks').then((ml) => {setMetalibrary(ml.data) } ) }
 
   useEffect( () => getCreators(), [] )
@@ -80,13 +80,13 @@ function Workspace(token: string = '') {
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }
 
 function AddCreator() {
 
-  const [name, setName] = useState('');
-  const [lang, setLang] = useState(1);
+  const [name, setName] = useState('')
+  const [lang, setLang] = useState(1)
 
   function createAuthor() {
       const c: Creator =
@@ -98,7 +98,7 @@ function AddCreator() {
                                                                               if (r.data === 1) {alert('Creator is created.')}
                                                                                              } ) }
 
-  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setName(event.target.value)};
+  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setName(event.target.value)}
 
   const handleChangeLang = (event: SelectChangeEvent<number>) =>  { setLang(Number(event.target.value)) }
 
@@ -114,7 +114,7 @@ function AddCreator() {
            </Select>
       </div>
     </Box>
-  );
+  )
 }
 
 function GetCreators(people: People) {
@@ -130,14 +130,14 @@ function GetCreators(people: People) {
         {people.people.map(c => <Grid item xs={12} ><Item>{c.english_name} <DeleteIcon onClick={()=>deleteCreator(c.id) } /></Item></Grid>)}
       </Grid>
     </Box>
-  );}
+  )}
 
 function AddBook(people: People, ml: Metalibrary, headers: any) {
 
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [lang, setLang] = useState(1);
-  const [metabook, setMetabook] = useState(1);
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [lang, setLang] = useState(1)
+  const [metabook, setMetabook] = useState(1)
 
   function createBook() {
       const b: Book =
@@ -149,7 +149,7 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
                                                                                     if (r.data === 1) {alert('Book is created.')}
                                                                                                    } ) }
 
-  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value)};
+  const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value)}
 
   const handleChangeAuthor = (event:React.ChangeEvent<HTMLInputElement>) => { setAuthor(event.target.value) }
 
@@ -178,7 +178,7 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
            </Select>
       </div>
     </Box>
-  );
+  )
 }
 
 function GetBooks(library: Library, token: string) {
@@ -204,13 +204,13 @@ function GetBooks(library: Library, token: string) {
         </Item> </Grid>)}
       </Grid>
     </Box>
-  );}
+  )}
 
 function AddMetabook(people: People) {
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('')
   const [author, setAuthor] = useState(1)
-  const [lang, setLang] = useState(1);
+  const [lang, setLang] = useState(1)
 
   function createMetabook() {
       const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0}
@@ -220,7 +220,7 @@ function AddMetabook(people: People) {
                                                                                               } ) }
 
 
-  const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) };
+  const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) }
 
   const handleChangeLang = (event: SelectChangeEvent<number>) =>  { setLang(Number(event.target.value)) }
 
@@ -243,7 +243,7 @@ function AddMetabook(people: People) {
            </Select>
       </div>
     </Box>
-  );
+  )
 }
 
 function GetMetabooks(ml: Metalibrary, token: string) {
@@ -262,5 +262,5 @@ function GetMetabooks(ml: Metalibrary, token: string) {
         </Item> </Grid>)}
       </Grid>
     </Box>
-  );}
+  )}
 

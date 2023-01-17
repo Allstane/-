@@ -13,5 +13,5 @@ export default function Nietzsche() {
       <footer className="App-footer"><p> </p>
       </footer>
     </body>
-    );
+    )
 }

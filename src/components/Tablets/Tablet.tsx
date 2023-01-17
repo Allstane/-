@@ -7,7 +7,7 @@ import GridBook from './GridForOne'
 
 function Tablet() {
 
-   const {bid} = useParams();
+   const {bid} = useParams()
    const [book, setBook] = useState<BookF>(dummyBF)
 
    const getBook = () => {
@@ -25,6 +25,6 @@ function Tablet() {
       <footer className="App-footer">
       </footer>
     </body>
-    );
+    )
 }
-export default Tablet;
+export default Tablet

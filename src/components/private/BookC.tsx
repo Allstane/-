@@ -13,7 +13,7 @@ export default function BookC() {
    const {token, bId} = useParams()
    const [bookF, setBookF] = useState<BookF>(dummyBF)
 
-   const getBookC = () => { instance.get<BookF>('/admin/bookFC/'+Number(bId)).then((b) => {console.log(b); setBookF(b.data) } ) }
+   const getBookC = () => { instance.get<BookF>('/admin/bookFC/'+Number(bId)).then((b) => setBookF(b.data) ) }
 
    useEffect( () => getBookC(), [])
 
@@ -28,7 +28,7 @@ export default function BookC() {
       <footer className="App-footer">
       </footer>
     </body>
-    );
+    )
 }
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -37,7 +37,7 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'justify',
   color: theme.palette.text.secondary,
-}));
+}))
 
 function gridBook(book: BookF) {
   return (
@@ -49,5 +49,5 @@ function gridBook(book: BookF) {
         {book.chapters.map(ch => <Grid item xs={10}><Item>{ch.title}<br/>{ch.txt}</Item></Grid>)}
       </Grid>
     </Box>
-  );
+  )
 }

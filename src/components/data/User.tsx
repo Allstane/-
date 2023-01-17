@@ -1,8 +1,8 @@
 export type User = {
-  id: number;
-  login: string;
-  password: string;
-  token: string;
+  id: number
+  login: string
+  password: string
+  token: string
   role: string
 }
 
