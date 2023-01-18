@@ -51,7 +51,7 @@ function Workspace(token: string = '') {
   const getLibrary = () => { instance.get<Library>('/admin/booksC', headers).then((l) => {setLibrary(l.data) } ) }
 
   const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
-  const getMetalibrary = () => { instance.get<Metalibrary>('/admin/getMetabooks').then((ml) => {setMetalibrary(ml.data) } ) }
+  const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooksC').then((ml) => {setMetalibrary(ml.data) } ) }
 
   useEffect( () => getCreators(), [] )
   useEffect( () => getLibrary(), [] )
@@ -215,7 +215,7 @@ function AddMetabook(people: People) {
   const [lang, setLang] = useState(1)
 
   function createMetabook() {
-      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0}
+      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0, size: 0}
       const json = JSON.stringify(m)
       instance.post('/admin/insertMetabook', json)
         .then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
