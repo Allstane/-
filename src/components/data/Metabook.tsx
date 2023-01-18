@@ -7,6 +7,7 @@ export type Metabook = {
   language: number
   title: string
   create_date: number
+  size: number
 }
 
 export type MetabookF = {
@@ -15,7 +16,7 @@ export type MetabookF = {
   tags: Array<TagInUse>
 }
 
-export const dummyM = {id: -1, author: 0, language: 0, title: '', create_date: 0}
+export const dummyM = {id: -1, author: 0, language: 0, title: '', create_date: 0, size: 0}
 export const dummyMF =  {metabook: dummyM, books: [], tags: []}
 
 export type Metalibrary = Metabook[]
