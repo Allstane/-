@@ -7,9 +7,11 @@ import { instance } from "./../AxiosInstance"
 import Button from "@mui/material/Button"
 import Grid from "@mui/material/Grid"
 import BookView from "./BookView"
+import Tags from "./Tags"
+import {TagInUse} from './../data/Tag'
 
 function Tablets() {
-  const { ChId, LBId, RBId } = useParams()
+  const {ChId, LBId, RBId} = useParams()
   const [leftChapter, setLeftChapter] = useState<Chapter>(dummyCh)
   const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
   const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
@@ -19,10 +21,9 @@ function Tablets() {
     getMetabookF()
     getChapters()
   }, [ChId, LBId, RBId])
+
   function getMetabookF() {
-    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => {
-      setMetabookF(response.data)
-    })
+    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { setMetabookF(response.data) })
   }
 
   function getChapters() {
@@ -50,6 +51,10 @@ function Tablets() {
     const book: Book =
       metabookF.books.find((book) => book.id === bookId) ?? dummyB
     return book
+  }
+
+  function actualTags(book: number, chapter: number, tags: Array<TagInUse>): Array<TagInUse> {
+    return tags.filter(tag => tag.book === book && tag.chapter === chapter )
   }
 
   const PageSwitchWrapper = () => {
@@ -87,7 +92,7 @@ function Tablets() {
       <header className="App-header">
         <p>{findBook(metabookF, Number(LBId)).title}</p>
         <Button variant="contained" onClick={() => onToggleSplitView(!isSplitView)}>Split View</Button>
-
+        <p>{ Tags(actualTags(Number(LBId), Number(ChId), metabookF.tags))  }</p>
       </header>
       <main className="App-main">
         {BookView(

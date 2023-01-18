@@ -94,9 +94,9 @@ function AddCreator() {
        death_date: 0, is_author: true, is_translator: false}
       const json = JSON.stringify(c)
       console.log('Send a creator to backend for saving: ' + json)
-      instance.post('/admin/insertCreator', json).then(r => { console.log('Response from backend after sending a creator: ' + r.data)
-                                                                              if (r.data === 1) {alert('Creator is created.')}
-                                                                                             } ) }
+      instance.post('/admin/insertCreator', json)
+        .then(r => { console.log('Response from backend after sending a creator: ' + r.data)
+                     if (r.data === 1) {alert('Creator is created.')}})}
 
   const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setName(event.target.value)}
 
@@ -127,7 +127,9 @@ function GetCreators(people: People) {
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        {people.people.map(c => <Grid item xs={12} ><Item>{c.english_name} <DeleteIcon onClick={()=>deleteCreator(c.id) } /></Item></Grid>)}
+        {people.people.map(c => <Grid item xs={12} >
+                                <Item>{c.english_name} <DeleteIcon onClick={()=>deleteCreator(c.id) } /></Item>
+                                </Grid>)}
       </Grid>
     </Box>
   )}
@@ -145,9 +147,9 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
                                    translator: 1, is_ready: false, is_visible: false }
       const json = JSON.stringify(b)
       console.log('Send a book to backend for saving: ' + json)
-      instance.post('/admin/insertBook', json, headers).then(r => { console.log('Response from backend after sending a book: ' + r.data)
-                                                                                    if (r.data === 1) {alert('Book is created.')}
-                                                                                                   } ) }
+      instance.post('/admin/insertBook', json, headers)
+        .then(r => { console.log('Response from backend after sending a book: ' + r.data)
+                     if (r.data === 1) {alert('Book is created.')}})}
 
   const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value)}
 
@@ -183,9 +185,9 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
 
 function GetBooks(library: Library, token: string) {
 
-  function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id).then(r => { console.log('Response from backend after deleting of a book: ' + r.data)
-                                                                                                      if (r.data === 1) {alert('Book is deleted.')}
-                                                                                                               } ) }
+  function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id)
+                              .then(r => { console.log('Response from backend after deleting of a book: ' + r.data)
+                                           if (r.data === 1) {alert('Book is deleted.')}})}
 
   const bookAddLink = (token: string, id: number) => "/private/"+token+"/"+id+"/load"
 
@@ -215,10 +217,9 @@ function AddMetabook(people: People) {
   function createMetabook() {
       const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0}
       const json = JSON.stringify(m)
-      instance.post('/admin/insertMetabook', json).then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
-                                                                               if (r.data === 1) {alert('Metabook is created.')}
-                                                                                              } ) }
-
+      instance.post('/admin/insertMetabook', json)
+        .then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
+                     if (r.data === 1) {alert('Metabook is created.')}})}
 
   const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) }
 
