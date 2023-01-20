@@ -8,3 +8,13 @@ export type TagInUse = {
   owners_title: string
   owners_description: string
 }
+
+export type TagsT = Array<TagInUse>
+
+export interface TagTypes {
+  sex: string,
+  detective: string,
+  war: string,
+  drama: string,
+  comedy: string,
+}
