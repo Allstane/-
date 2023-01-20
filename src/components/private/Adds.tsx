@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useParams, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './../App.css'
 import {instance} from './../AxiosInstance'
 import {styled} from '@mui/material/styles'
@@ -12,11 +12,11 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import Button from '@mui/material/Button'
-import DeleteIcon from '@mui/icons-material/Delete'
-
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { getToken } from '../../utils/helpers/tokenSettings'
 export default function Adds() {
-   const {token} = useParams()
+   const token = getToken()
 
    return (
     <body>
@@ -41,8 +41,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 function Workspace(token: string = '') {
-
-  const headers = {headers: {'Authorization': token}}
+  const headers = {headers: {'Authorization': token}};
 
   const [people, setPeople] = useState<People>(dummyP)
   const getCreators = () => { instance.get<People>('/admin/getCreators').then((p) => {setPeople(p.data) } ) }

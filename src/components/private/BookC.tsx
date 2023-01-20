@@ -10,7 +10,7 @@ import Box from '@mui/material/Box'
 
 export default function BookC() {
 
-   const {token, bId} = useParams()
+   const {bId} = useParams()
    const [bookF, setBookF] = useState<BookF>(dummyBF)
 
    const getBookC = () => { instance.get<BookF>('/admin/bookFC/'+Number(bId)).then((b) => setBookF(b.data) ) }
