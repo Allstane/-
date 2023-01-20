@@ -5,13 +5,17 @@ import { useParams, Link } from "react-router-dom"
 import "./../App.css"
 import { instance } from "./../AxiosInstance"
 import Button from "@mui/material/Button"
-import Grid from "@mui/material/Grid"
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
 import BookView from "./BookView"
 import Tags from "./Tags"
 import {TagInUse} from './../data/Tag'
 
 function Tablets() {
   const {ChId, LBId, RBId} = useParams()
+  const [maxBookPage, setMaxBookPage] = useState<Number>(0)
+  const [currentPage, setCurrentPage] = useState<Number>(1)
   const [leftChapter, setLeftChapter] = useState<Chapter>(dummyCh)
   const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
   const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
@@ -20,10 +24,19 @@ function Tablets() {
   useEffect(() => {
     getMetabookF()
     getChapters()
+    setCurrentPage(Number(ChId))
   }, [ChId, LBId, RBId])
 
   function getMetabookF() {
-    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { setMetabookF(response.data) })
+    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { setMetabookF(response.data); updateBookPage(response.data.metabook.size) })
+  }
+
+  function updateBookPage(bookSize: number) {
+    if (!!bookSize) {
+      setMaxBookPage(bookSize)
+    } else {
+      setMaxBookPage(0)
+    }
   }
 
   function getChapters() {
@@ -39,14 +52,6 @@ function Tablets() {
       })
   }
 
-  function changeChapter(
-    leftBook: number,
-    rightBook: number,
-    chapter: number
-  ): string {
-    return "/lbid/" + leftBook + "/rbid/" + rightBook + "/chid/" + chapter
-  }
-
   function findBook(metabookF: MetabookF, bookId: number): Book {
     const book: Book =
       metabookF.books.find((book) => book.id === bookId) ?? dummyB
@@ -59,31 +64,21 @@ function Tablets() {
 
   const PageSwitchWrapper = () => {
     return (
-      <Grid
-        container
-        justifyContent="center"
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        style={{marginTop: '10px'}}
-      >
-        <Grid container xs={3.5} style={{justifyContent: 'center'}}>
-          <Button
-            component={Link}
-            to={changeChapter(Number(LBId), Number(RBId), Number(ChId) - 1)}
-            variant="contained"
-          >
-            Previous
-          </Button>
-        </Grid>
-        <Grid container xs={3.5} style={{justifyContent: 'center', paddingLeft: '24px'}}>
-          <Button
-            component={Link}
-            to={changeChapter(Number(LBId), Number(RBId), Number(ChId) + 1)}
-            variant="contained"
-          >
-            Next
-          </Button>
-        </Grid>
-      </Grid>
+        <Stack spacing={2}>
+          <Pagination 
+            page={+currentPage}
+            count={(Number(maxBookPage) - 1)} 
+            color="primary" 
+            renderItem={(item) => {
+              return <PaginationItem
+                  component={Link}
+                  to={`/lbid/${Number(LBId)}/rbid/${Number(RBId)}/chid/${item.page}`}
+                  {...item}
+                />
+            }}
+              
+          />
+        </Stack>
     )
   }
 

@@ -42,14 +42,13 @@ export default function BookView(
               lr={false}
             />
           </Grid>
-
           <Grid item style={{margin: '10px 0'}}>
             <Item>
               {leftBook.author} "{leftBook.title}"
             </Item>
           </Grid>
-          <Grid item style={{marginBottom: '10px'}}>
-            <Item>{leftChapter.title}</Item>
+          <Grid container justifyContent="center" style={{marginBottom: '10px', textAlign: 'center'}}>
+            <Item>{Number.isInteger(Number(leftChapter.title)) ? 'Chapter: ' : ''}{leftChapter.title}</Item>
           </Grid>
           <Grid item>
             <Item>{leftChapter.txt}</Item>
