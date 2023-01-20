@@ -9,9 +9,17 @@ import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import BookView from "./BookView"
-import Tags from "./Tags"
-import {TagInUse} from './../data/Tag'
+import Tags from "../Form/Tag/Tags"
+import {TagsT} from './../data/Tag'
 
+const dummData = [
+    {book: 2, chapter: 2, owners_description: '', owners_title: 'sex'},
+    {book: 2, chapter: 2, owners_description: '', owners_title: 'comedy'},
+    {book: 2, chapter: 3, owners_description: '', owners_title: 'war'},
+    {book: 2, chapter: 4, owners_description: '', owners_title: 'detective'},
+    {book: 2, chapter: 4, owners_description: '', owners_title: 'drama'},
+    {book: 2, chapter: 5, owners_description: '', owners_title: 'comedy'},
+]
 function Tablets() {
   const {ChId, LBId, RBId} = useParams()
   const [maxBookPage, setMaxBookPage] = useState<Number>(0)
@@ -19,24 +27,25 @@ function Tablets() {
   const [leftChapter, setLeftChapter] = useState<Chapter>(dummyCh)
   const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
   const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
+  const [tags, setTags] = useState<TagsT>();
   const [isSplitView, onToggleSplitView] = useState(false)
 
   useEffect(() => {
     getMetabookF()
     getChapters()
-    setCurrentPage(Number(ChId))
+    updateChapters()
   }, [ChId, LBId, RBId])
 
   function getMetabookF() {
-    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { setMetabookF(response.data); updateBookPage(response.data.metabook.size) })
+    console.log(ChId)
+    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { 
+      setMetabookF(response.data) 
+    })
   }
 
-  function updateBookPage(bookSize: number) {
-    if (!!bookSize) {
-      setMaxBookPage(bookSize)
-    } else {
-      setMaxBookPage(0)
-    }
+  function updateChapters() {
+    const activeChapterTag = dummData.filter((el) => el.chapter.toString() === ChId)
+    setTags(activeChapterTag)
   }
 
   function getChapters() {
@@ -58,10 +67,6 @@ function Tablets() {
     return book
   }
 
-  function actualTags(book: number, chapter: number, tags: Array<TagInUse>): Array<TagInUse> {
-    return tags.filter(tag => tag.book === book && tag.chapter === chapter )
-  }
-
   const PageSwitchWrapper = () => {
     return (
         <Stack spacing={2}>
@@ -81,13 +86,12 @@ function Tablets() {
         </Stack>
     )
   }
-
    return (
     <>
       <header className="App-header">
         <p>{findBook(metabookF, Number(LBId)).title}</p>
         <Button variant="contained" onClick={() => onToggleSplitView(!isSplitView)}>Split View</Button>
-        <p>{ Tags(actualTags(Number(LBId), Number(ChId), metabookF.tags))  }</p>
+        <Tags tags={tags}/>
       </header>
       <main className="App-main">
         {BookView(
