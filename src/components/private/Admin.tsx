@@ -34,7 +34,7 @@ function GridEditableBook(book: BookF) {
 
 export default function Private() {
 
-   const {token, bId} = useParams()
+   const {bId} = useParams();
    const [book, setBook] = useState<BookF>(dummyBF)
 
    const getBook = () => { instance.get<BookF>('/bookF/'+Number(bId)).then((b) => {setBook(b.data) } )}

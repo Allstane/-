@@ -5,11 +5,12 @@ import {instance} from './../AxiosInstance'
 import {Chapter, BookF, dummyB} from './../data/Chapter'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-
+import Button from '@mui/material/Button';
+import { getToken } from '../../utils/helpers/tokenSettings'
 
 export default function LoadBook() {
-   const {token, bId} = useParams()
+  const token = getToken()
+   const {bId} = useParams()
    const [rawBook, setRawBook] = useState<string>('')
 
   function insertBookF(bF: BookF) {

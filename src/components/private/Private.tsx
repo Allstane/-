@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {User} from './../data/User'
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
+import { saveToken as _saveToken } from '../../utils/helpers/tokenSettings';
 
 function Login(props: any) {
   return (
@@ -35,19 +36,22 @@ const theme = createTheme()
 function SignIn() {
   const navigate = useNavigate()
 
-  function getToken(l: string, p: string) {
-    const user: User = {id: 0, login: l, password: p, token: '', role: ''}
+  function saveToken(userName: string, userPass: string) {
+    const user: User = {id: 0, login: userName, password: userPass, token: '', role: ''}
     const json = JSON.stringify(user)
     instance.post<User>('/auth', json, {headers: {'Content-Type': 'application/json'}})
-    .then(u => { navigate("/private/"+u.data.token) })
+    .then(u => { 
+      _saveToken(u.data.token)
+      navigate("/private/main"); 
+    })
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const l = data.get('login')
-    const p = data.get('password')
-    getToken(String(l), String(p))
+    const userName = data.get('login')
+    const userPass = data.get('password')
+    saveToken(String(userName), String(userPass))
   }
 
   return (
