@@ -38,6 +38,7 @@ function Tablets() {
     getMetabookF()
     getChapters()
     updateChapters()
+    setCurrentPage(Number(ChId))
   }, [ChId, LBId, RBId])
 
   useEffect(() => {getNotes()}, [LBId, RBId])
@@ -48,7 +49,19 @@ function Tablets() {
   }
 
   function getMetabookF() {
-    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { setMetabookF(response.data)  })
+    instance.get<MetabookF>("/metabookF/" + Number(LBId))
+      .then((response) => { 
+        setMetabookF(response.data); 
+        updateBookPage(response.data.metabook.size)
+      })
+  }
+
+  function updateBookPage(bookSize: number) {
+    if (!!bookSize) {
+      setMaxBookPage(bookSize)
+    } else {
+      setMaxBookPage(0)
+    }
   }
 
   function updateChapters() {
@@ -66,7 +79,6 @@ function Tablets() {
       metabookF.books.find((book) => book.id === bookId) ?? dummyB
     return book
   }
-
   const PageSwitchWrapper = () => {
     return (
         <Stack spacing={2}>
@@ -75,6 +87,7 @@ function Tablets() {
             count={(Number(maxBookPage) - 1)} 
             color="primary" 
             renderItem={(item) => {
+              console.log(item)
               return <PaginationItem
                   component={Link}
                   to={`/lbid/${Number(LBId)}/rbid/${Number(RBId)}/chid/${item.page}`}
