@@ -6,6 +6,7 @@ import Box from "@mui/material/Box"
 import { Book, Chapter } from "../data/Chapter"
 import { MetabookF } from "../data/Metabook"
 import LanguageSelect from "./LanguageSelect"
+import {Notes} from './../data/Note'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,6 +21,8 @@ export default function BookView(
   rightBook: Book,
   leftChapter: Chapter,
   rightChapter: Chapter,
+  leftNotes: Notes,
+  rightNotes: Notes,
   metabookF: MetabookF,
   chId: number,
   isSplitView: boolean
@@ -52,6 +55,7 @@ export default function BookView(
           </Grid>
           <Grid item>
             <Item>{leftChapter.txt}</Item>
+            {leftNotes.filter(n => n.chapter === chId).map(n => <Item>{n.id}. {n.txt}.</Item>)}
           </Grid>
         </Grid>
         {isSplitView && (
@@ -75,6 +79,7 @@ export default function BookView(
             </Grid>
             <Grid item>
               <Item>{rightChapter.txt}</Item>
+              {rightNotes.filter(n => n.chapter === chId).map(n => <Item>{n.id}. {n.txt}.</Item>)}
             </Grid>
           </Grid>
         )}

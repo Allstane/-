@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { getToken } from '../../utils/helpers/tokenSettings'
+
 export default function Adds() {
    const token = getToken()
 
@@ -188,9 +189,9 @@ function GetBooks(library: Library, token: string) {
                               .then(r => { console.log('Response from backend after deleting of a book: ' + r.data)
                                            if (r.data === 1) {alert('Book is deleted.')}})}
 
-  const bookAddLink = (token: string, id: number) => "/private/"+token+"/"+id+"/load"
+  const bookAddLink = (id: number) => "/private/"+id+"/load"
 
-  const bookTextLink = (token: string, id: number) => "/private/"+token+"/"+id
+  const bookTextLink = (id: number) => "/private/"+id
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -198,9 +199,9 @@ function GetBooks(library: Library, token: string) {
         {library.library.map(b =>
         <Grid item xs={12} >
         <Item> Название книги: {b.title}.<br/> Автор: {b.author}.<br/> Метакнига: {b.metabook}.<br/> Язык: {b.language}<br/>
-         <Link to={bookAddLink(token, b.id)}>Добавить текст, если его нет</Link>
+         <Link to={bookAddLink(b.id)}>Добавить текст, если его нет</Link>
           <br/>
-         <Link to={bookTextLink(token, b.id)}>Посмотреть текст, если есть</Link> <br/>
+         <Link to={bookTextLink(b.id)}>Посмотреть текст, если есть</Link> <br/>
          <DeleteIcon onClick={()=>deleteBook(b.id) } />
         </Item> </Grid>)}
       </Grid>

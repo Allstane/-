@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import BookView from "./BookView"
 import Tags from "../Form/Tag/Tags"
 import {TagsT} from './../data/Tag'
+import {Note, Notes} from './../data/Note'
 
 const dummData = [
     {book: 2, chapter: 2, owners_description: '', owners_title: 'sex'},
@@ -20,6 +21,7 @@ const dummData = [
     {book: 2, chapter: 4, owners_description: '', owners_title: 'drama'},
     {book: 2, chapter: 5, owners_description: '', owners_title: 'comedy'},
 ]
+
 function Tablets() {
   const {ChId, LBId, RBId} = useParams()
   const [maxBookPage, setMaxBookPage] = useState<Number>(0)
@@ -29,6 +31,8 @@ function Tablets() {
   const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
   const [tags, setTags] = useState<TagsT>();
   const [isSplitView, onToggleSplitView] = useState(false)
+  const [leftNotes, setLeftNotes] = useState<Notes>([])
+  const [rightNotes, setRightNotes] = useState<Notes>([])
 
   useEffect(() => {
     getMetabookF()
@@ -36,11 +40,15 @@ function Tablets() {
     updateChapters()
   }, [ChId, LBId, RBId])
 
+  useEffect(() => {getNotes()}, [LBId, RBId])
+
+  function getNotes() {
+    instance.get<Notes>("/notes/" + Number(LBId)).then((n) => {setLeftNotes(n.data) })
+    instance.get<Notes>("/notes/" + Number(RBId)).then((n) => {setRightNotes(n.data) })
+  }
+
   function getMetabookF() {
-    console.log(ChId)
-    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { 
-      setMetabookF(response.data) 
-    })
+    instance.get<MetabookF>("/metabookF/" + Number(LBId)).then((response) => { setMetabookF(response.data)  })
   }
 
   function updateChapters() {
@@ -49,16 +57,8 @@ function Tablets() {
   }
 
   function getChapters() {
-    instance
-      .get<Chapter>("/book/" + Number(LBId) + "/chapter/" + Number(ChId))
-      .then((ch) => {
-        setLeftChapter(ch.data)
-      })
-    instance
-      .get<Chapter>("/book/" + Number(RBId) + "/chapter/" + Number(ChId))
-      .then((ch) => {
-        setRightChapter(ch.data)
-      })
+    instance.get<Chapter>("/book/" + Number(LBId) + "/chapter/" + Number(ChId)).then((ch) => {setLeftChapter(ch.data) })
+    instance.get<Chapter>("/book/" + Number(RBId) + "/chapter/" + Number(ChId)).then((ch) => {setRightChapter(ch.data)})
   }
 
   function findBook(metabookF: MetabookF, bookId: number): Book {
@@ -99,6 +99,8 @@ function Tablets() {
           findBook(metabookF, Number(RBId)),
           leftChapter,
           rightChapter,
+          leftNotes,
+          rightNotes,
           metabookF,
           Number(ChId),
           isSplitView
