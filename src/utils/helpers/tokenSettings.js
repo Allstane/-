@@ -10,3 +10,6 @@ export const verifyToken = () => {
     return !!getToken()
 }
 
+export const logOutAction = () => {
+    localStorage.removeItem('token')
+}

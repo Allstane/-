@@ -1,0 +1,36 @@
+.header {
+    position: sticky;
+    top: 0;
+    background-color: rgb(190, 167, 244);
+    height: 75px;
+    z-index: 999;
+}
+
+.header .login-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+.user-info-wrapper {
+    position: absolute;
+    right: 20px;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-info .user-name {
+    padding-left: 10px;
+    font-size: 1.4em;
+    color: white;
+}
+
+.user-info .MuiSvgIcon-root {
+    width: 1.8em;
+    height: 1.8em;
+    fill: white;
+}
+

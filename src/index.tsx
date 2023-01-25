@@ -11,27 +11,31 @@ import Adds from './components/private/Adds'
 import BookC from './components/private/BookC'
 import Admin from './components/private/Admin'
 import { verifyToken } from './utils/helpers/tokenSettings';
+import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
+
 
 interface IApplicationProps {}
 const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     return <BrowserRouter>
-               <Routes>
-               <Route path='/' element={<Nietzsche />} />
-               <Route path='/private' element={<Private />} />
-               {verifyToken() && (
-                  <>
-                    <Route path='/private/main' element={<Adds />} />
-                    <Route path='/private/:bId/load' element={<LoadBook />} />
-                    <Route path='/private/:bId' element={<BookC />} />
-                    <Route path='/private/:bId/admin' element={<Admin />} />
-                  </>
-               )}
-               
-               <Route path='book/:bid' element={<Tablet />} />
-               <Route path='bookc/:bid' element={<Tablet />} />
-               <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
-               </Routes>
-               </BrowserRouter>
+        <LayoutWrapper>
+          <Routes>
+          <Route path='/' element={<Nietzsche />} />
+          <Route path='/private' element={<Private />} />
+          {verifyToken() && (
+              <>
+                <Route path='/private/main' element={<Adds />} />
+                <Route path='/private/:bId/load' element={<LoadBook />} />
+                <Route path='/private/:bId' element={<BookC />} />
+                <Route path='/private/:bId/admin' element={<Admin />} />
+              </>
+          )}
+          
+          <Route path='book/:bid' element={<Tablet />} />
+          <Route path='bookc/:bid' element={<Tablet />} />
+          <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
+          </Routes>
+        </LayoutWrapper>
+    </BrowserRouter>
 }
 
 const root = ReactDOM.createRoot(
@@ -40,6 +44,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Application />
+      <Application />
   </React.StrictMode>
 )
