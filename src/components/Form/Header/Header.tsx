@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {AccountCircle, LibraryBooks, Settings, Group, ExitToApp, ShoppingCart, CardGiftcard} from '@mui/icons-material'
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
@@ -7,22 +7,41 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './style.css'
 
-import { verifyToken, logOutAction } from "../../../utils/helpers/tokenSettings";
+import { verifyToken } from "../../../utils/helpers/tokenSettings";
+import { getUserName } from "../../../utils/helpers/userSettingsSaving";
+import { clearLocalStorage } from "../../../utils/helpers/clearLocalStorage";
 
-const Header = () => {
+interface UserRoleProps {
+    onChangeUserRole: () => void
+}
+const Header = ({onChangeUserRole}: UserRoleProps) => {
     const [isDropdownVisible, onChangeDropdownVisibility] = useState<Boolean>(false)
-    
+    const [userName, setUserName] = useState<string | null>()
+    const [isUserLoggedIn, onChangeUserLoggedInStatus] = useState<Boolean>()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        setUserName(getUserName())
+        onChangeUserLoggedInStatus(verifyToken())
+    }, [isUserLoggedIn, verifyToken()])
+
+    const logOut = () => {
+        onChangeUserLoggedInStatus(false)
+        clearLocalStorage()
+        onChangeUserRole()
+        navigate('/')
+    }
     return (
         <div className="header">
-            {!verifyToken() 
+            {!isUserLoggedIn 
                 ? <Link to='/private'><Button className="login-btn" variant="contained">Login</Button></Link>
                 : <div className="user-info-wrapper">
                 <span className="user-info"  onClick={() => onChangeDropdownVisibility(!isDropdownVisible)}>
                     <AccountCircle/>
-                    <p className="user-name">Stanislav Kapinus</p>
+                    <p className="user-name">{userName}</p>
                 </span>
                 {isDropdownVisible && 
                     <div className="user-settings-dropdown">
@@ -59,7 +78,7 @@ const Header = () => {
                                     <ListItemText>Settings</ListItemText>
                                 </MenuItem>
                                 <Divider />
-                                <MenuItem onClick={() => logOutAction()}>
+                                <MenuItem onClick={logOut}>
                                     <ListItemIcon>
                                         <ExitToApp fontSize="small" />
                                     </ListItemIcon>

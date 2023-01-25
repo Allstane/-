@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect, useContext} from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,13 +7,21 @@ import ListItemText from '@mui/material/ListItemText';
 import {LibraryBooks, Groups, LocalLibrary, House, Security} from '@mui/icons-material'
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
-import { verifyToken } from "../../../utils/helpers/tokenSettings";
+import { roles } from "../../../utils/constants/roles";
+import { getUserRole, isUserRoleChanged } from "../../../utils/helpers/userSettingsSaving";
 import './style.css'
 
 const LayoutWrapper = ({children}) => {
+    const [isAdminRole, checkIsAdminRole] = useState('')
+    const [userRole, onChangeUserRole] = useState(getUserRole())
+    console.log(userRole)
+    useEffect(() => {
+        checkIsAdminRole(roles.includes(userRole))
+    }, [userRole, isUserRoleChanged()])
+
     return (
         <React.Fragment className='layout-wrapper'>
-            <Header/>
+            <Header onChangeUserRole={onChangeUserRole}/>
             <div className="side-menu">
                 <List className="menu-list">
                     <ListItem disablePadding>
@@ -50,7 +58,7 @@ const LayoutWrapper = ({children}) => {
                         <ListItemText primary="Communities" />
                         </ListItemButton>
                     </ListItem>
-                    {verifyToken() && <ListItem disablePadding>
+                    {isAdminRole && <ListItem disablePadding>
                         <Link to='/private/main'>
                             <ListItemButton>
                             <ListItemIcon>

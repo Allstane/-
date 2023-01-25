@@ -17,6 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {User} from './../data/User'
 import {useNavigate} from "react-router-dom";
 import { saveToken as _saveToken } from '../../utils/helpers/tokenSettings';
+import { saveUserName, saveUserRole } from '../../utils/helpers/userSettingsSaving'
 
 function Login(props: any) {
   return (
@@ -42,7 +43,9 @@ function SignIn() {
     instance.post<User>('/auth', json, {headers: {'Content-Type': 'application/json'}})
     .then(u => { 
       _saveToken(u.data.token)
-      navigate("/private/main"); 
+      saveUserName(u.data.login)
+      saveUserRole(u.data.role)
+      navigate('/private/main'); 
     })
   }
 
