@@ -87,7 +87,6 @@ function Tablets() {
             count={(Number(maxBookPage) - 1)} 
             color="primary" 
             renderItem={(item) => {
-              console.log(item)
               return <PaginationItem
                   component={Link}
                   to={`/lbid/${Number(LBId)}/rbid/${Number(RBId)}/chid/${item.page}`}

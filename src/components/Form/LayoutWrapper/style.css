@@ -1,0 +1,33 @@
+.layout-wrapper {
+    position: relative;
+}
+
+.side-menu {
+    width: 400px;
+    height: 100%;
+    position: fixed;
+    padding: 20px;
+    left: 0;
+    background-color: rgb(219, 206, 249);
+}
+
+.content {
+    height: 100vh;
+    margin-left: 440px;
+}
+
+.menu-list .css-10hburv-MuiTypography-root{
+    color: white;
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.menu-list a {
+    text-decoration: none;
+}
+
+.menu-list .MuiSvgIcon-root {
+    fill: white;
+    height: 1.6em;
+    width: 1.6em;
+}
