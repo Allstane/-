@@ -1,0 +1,12 @@
+.settings {
+    margin-top: 50px;
+}
+
+.settings .settings-header {
+    position: relative;
+}
+.settings .settings-action-wrapper {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

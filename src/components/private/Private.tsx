@@ -45,6 +45,7 @@ function SignIn() {
       _saveToken(u.data.token)
       saveUserName(u.data.login)
       saveUserRole(u.data.role)
+      console.log(u)
       navigate('/private/main'); 
     })
   }
