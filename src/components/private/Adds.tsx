@@ -18,7 +18,6 @@ import { getToken } from '../../utils/helpers/tokenSettings'
 
 export default function Adds() {
    const token = getToken()
-
    return (
     <body>
       <header className="App-header">
