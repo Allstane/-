@@ -10,6 +10,7 @@ import LoadBook from './components/private/LoadBook'
 import Adds from './components/private/Adds'
 import BookC from './components/private/BookC'
 import Admin from './components/private/Admin'
+import Settings from './pages/Settings/Settings';
 import { verifyToken } from './utils/helpers/tokenSettings';
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
 
@@ -27,6 +28,7 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
                 <Route path='/private/:bId/load' element={<LoadBook />} />
                 <Route path='/private/:bId' element={<BookC />} />
                 <Route path='/private/:bId/admin' element={<Admin />} />
+                <Route path='/settings' element={<Settings/>}/>
               </>
           )}
           

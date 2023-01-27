@@ -71,12 +71,14 @@ const Header = ({onChangeUserRole}: UserRoleProps) => {
                                     </ListItemIcon>
                                     <ListItemText>Cart</ListItemText>
                                 </MenuItem>
-                                <MenuItem>
-                                    <ListItemIcon>
-                                        <Settings fontSize="small" />
-                                    </ListItemIcon>
-                                    <ListItemText>Settings</ListItemText>
-                                </MenuItem>
+                                <Link to='/settings'>
+                                    <MenuItem>
+                                        <ListItemIcon>
+                                            <Settings fontSize="small" />
+                                        </ListItemIcon>
+                                        <ListItemText>Settings</ListItemText>
+                                    </MenuItem>
+                                </Link>
                                 <Divider />
                                 <MenuItem onClick={logOut}>
                                     <ListItemIcon>
