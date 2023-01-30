@@ -8,11 +8,12 @@ export type Creator = {
   death_date: number
   is_author: boolean
   is_translator: boolean
+  owner: number
 }
 
 export const dummyC: Creator =
   {id: 0, english_name: '', russian_name: '', german_name: '', original_language: 1,
-   birth_date: 0, death_date: 0, is_author: false, is_translator: false}
+   birth_date: 0, death_date: 0, is_author: false, is_translator: false, owner: 0}
 
 export type People = {people: Array<Creator>}
 

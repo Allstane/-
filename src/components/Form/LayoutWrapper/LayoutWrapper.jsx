@@ -14,7 +14,6 @@ import './style.css'
 const LayoutWrapper = ({children}) => {
     const [isAdminRole, checkIsAdminRole] = useState('')
     const [userRole, onChangeUserRole] = useState(getUserRole())
-    console.log(userRole)
     useEffect(() => {
         checkIsAdminRole(roles.includes(userRole))
     }, [userRole, isUserRoleChanged()])
