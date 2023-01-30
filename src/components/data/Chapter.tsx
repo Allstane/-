@@ -18,6 +18,7 @@ export type Book = {
   translator: number
   is_ready: boolean
   is_visible: boolean
+  owner: number
 }
 
 export type BookF = {
@@ -27,7 +28,7 @@ export type BookF = {
 
 export const dummyB: Book = {
   id: 0, metabook: 0, language: 0, title: '', author: '', translation_date: 0,
-  translator: 0, is_ready: false, is_visible: false
+  translator: 0, is_ready: false, is_visible: false, owner: 0
 }
 export const dummyBF: BookF = { book: dummyB, chapters: [] }
 

@@ -44,13 +44,13 @@ function Workspace(token: string = '') {
   const headers = {headers: {'Authorization': token}};
 
   const [people, setPeople] = useState<People>(dummyP)
-  const getCreators = () => { instance.get<People>('/admin/getCreators').then((p) => {setPeople(p.data) } ) }
+  const getCreators = () => { instance.get<People>('/admin/getCreators', headers).then((p) => {setPeople(p.data) } ) }
 
   const [library, setLibrary] = useState<Library>(dummyL)
   const getLibrary = () => { instance.get<Library>('/admin/booksC', headers).then((l) => {setLibrary(l.data) } ) }
 
   const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
-  const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooksC').then((ml) => {setMetalibrary(ml.data) } ) }
+  const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooksC', headers).then((ml) => {setMetalibrary(ml.data) } ) }
 
   useEffect( () => getCreators(), [] )
   useEffect( () => getLibrary(), [] )
@@ -63,26 +63,26 @@ function Workspace(token: string = '') {
           <Item>Вставка книги {AddBook(people, metalibrary, headers)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Все книги {GetBooks(library, token)}</Item>
+          <Item>Все книги {GetBooks(library, headers)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Вставка автора или переводчика {AddCreator()}</Item>
+          <Item>Вставка автора или переводчика {AddCreator(headers)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Все авторы или переводчики {GetCreators(people)}</Item>
+          <Item>Все авторы или переводчики {GetCreators(people, headers)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Вставка метакниги {AddMetabook(people)}</Item>
+          <Item>Вставка метакниги {AddMetabook(people, headers)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Все метакниги {GetMetabooks(metalibrary, token)}</Item>
+          <Item>Все метакниги {GetMetabooks(metalibrary, headers)}</Item>
         </Grid>
       </Grid>
     </Box>
   )
 }
 
-function AddCreator() {
+function AddCreator(headers: any) {
 
   const [name, setName] = useState('')
   const [lang, setLang] = useState(1)
@@ -90,10 +90,10 @@ function AddCreator() {
   function createAuthor() {
       const c: Creator =
       {id: 0, english_name: name, russian_name: '', german_name: '', original_language: lang, birth_date: 0,
-       death_date: 0, is_author: true, is_translator: false}
+       death_date: 0, is_author: true, is_translator: false, owner: 0}
       const json = JSON.stringify(c)
       console.log('Send a creator to backend for saving: ' + json)
-      instance.post('/admin/insertCreator', json)
+      instance.post('/admin/insertCreator', json, headers)
         .then(r => { console.log('Response from backend after sending a creator: ' + r.data)
                      if (r.data === 1) {alert('Creator is created.')}})}
 
@@ -116,9 +116,9 @@ function AddCreator() {
   )
 }
 
-function GetCreators(people: People) {
+function GetCreators(people: People, headers: any) {
 
-  function deleteCreator(id: number) { instance.delete('/admin/deleteCreator/' + id)
+  function deleteCreator(id: number) { instance.delete('/admin/deleteCreator/' + id, headers)
                               .then(r => { console.log('Response from backend after deleting a creator: ' + r.data)
                                     if (r.data === 1) {alert('Creator is deleted.')}
                                       } ) }
@@ -143,7 +143,7 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
   function createBook() {
       const b: Book =
       {id: 0, metabook: metabook, language: lang, title: title, author: author, translation_date: 0,
-                                   translator: 1, is_ready: false, is_visible: false }
+                                   translator: 1, is_ready: false, is_visible: false, owner: 0 }
       const json = JSON.stringify(b)
       console.log('Send a book to backend for saving: ' + json)
       instance.post('/admin/insertBook', json, headers)
@@ -182,9 +182,9 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
   )
 }
 
-function GetBooks(library: Library, token: string) {
+function GetBooks(library: Library, headers: any) {
 
-  function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id)
+  function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id, headers)
                               .then(r => { console.log('Response from backend after deleting of a book: ' + r.data)
                                            if (r.data === 1) {alert('Book is deleted.')}})}
 
@@ -197,7 +197,7 @@ function GetBooks(library: Library, token: string) {
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
         {library.library.map(b =>
         <Grid item xs={12} >
-        <Item> Название книги: {b.title}.<br/> Автор: {b.author}.<br/> Метакнига: {b.metabook}.<br/> Язык: {b.language}<br/>
+        <Item> Название книги: {b.title}.<br/> Автор: {b.author}.<br/> Метакнига: {b.metabook}.<br/> Язык: {b.language}<br/> Владелец: {b.owner}<br/>
          <Link to={bookAddLink(b.id)}>Добавить текст, если его нет</Link>
           <br/>
          <Link to={bookTextLink(b.id)}>Посмотреть текст, если есть</Link> <br/>
@@ -207,16 +207,16 @@ function GetBooks(library: Library, token: string) {
     </Box>
   )}
 
-function AddMetabook(people: People) {
+function AddMetabook(people: People, headers: any) {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState(1)
   const [lang, setLang] = useState(1)
 
   function createMetabook() {
-      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0, size: 0}
+      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0, size: 0, owner: 0}
       const json = JSON.stringify(m)
-      instance.post('/admin/insertMetabook', json)
+      instance.post('/admin/insertMetabook', json, headers)
         .then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
                      if (r.data === 1) {alert('Metabook is created.')}})}
 
@@ -246,9 +246,9 @@ function AddMetabook(people: People) {
   )
 }
 
-function GetMetabooks(ml: Metalibrary, token: string) {
+function GetMetabooks(ml: Metalibrary, headers: any) {
 
-  function deleteMetabook(id: number) { instance.delete('/admin/deleteMetabook/' + id)
+  function deleteMetabook(id: number) { instance.delete('/admin/deleteMetabook/' + id, headers)
                              .then(r => { console.log('Response from backend after deleting a metabook: ' + r.data)
                              if (r.data === 1) {alert('Metabook is deleted.')}
                                             } ) }
