@@ -74,8 +74,8 @@ export default function BookView(
                 {rightBook.author} "{rightBook.title}"
               </Item>
             </Grid>
-            <Grid item style={{marginBottom: '10px'}}>
-              <Item>{rightChapter.title}</Item>
+            <Grid container justifyContent="center" style={{marginBottom: '10px', textAlign: 'center'}}>
+              <Item>{Number.isInteger(Number(rightChapter.title)) ? 'Chapter: ' : ''}{rightChapter.title}</Item>
             </Grid>
             <Grid item>
               <Item>{rightChapter.txt}</Item>
