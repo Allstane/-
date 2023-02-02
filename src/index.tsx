@@ -13,10 +13,13 @@ import Admin from './components/private/Admin'
 import Settings from './pages/Settings/Settings';
 import { verifyToken } from './utils/helpers/tokenSettings';
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
-
+import { clearLocalStorage } from './utils/helpers/clearLocalStorage';
 
 interface IApplicationProps {}
 const Application: React.FunctionComponent<IApplicationProps> = (props) => {
+  window.onbeforeunload = function () {
+    clearLocalStorage()
+  };
     return <BrowserRouter>
         <LayoutWrapper>
           <Routes>
