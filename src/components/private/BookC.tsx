@@ -13,14 +13,14 @@ export default function BookC() {
    const {bId} = useParams()
    const [bookF, setBookF] = useState<BookF>(dummyBF)
 
-   const getBookC = () => { instance.get<BookF>('/admin/bookFC/'+Number(bId)).then((b) => setBookF(b.data) ) }
+   const getBookC = () => { instance.get<BookF>('/bookF/'+Number(bId)).then((b) => setBookF(b.data) ) }
 
    useEffect( () => getBookC(), [])
 
    return (
     <body>
       <header className="App-header">
-        <p>Project - Library: Book-candidate</p>
+        <p>Project - Library: Book</p>
       </header>
       <main className="App-main">
         {gridBook(bookF)}
