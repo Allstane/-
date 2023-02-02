@@ -9,17 +9,33 @@ import Button from '@mui/material/Button';
 import { getToken } from '../../utils/helpers/tokenSettings'
 
 export default function LoadBook() {
-  const token = getToken()
+   const token = getToken()
    const {bId} = useParams()
    const [rawBook, setRawBook] = useState<string>('')
+   const headers = {headers: {'Authorization': token}};
 
   function insertBookF(bF: BookF) {
-
       const json = JSON.stringify(bF)
       const headers = {headers: {'Content-Type': 'multipart/form-data', 'Content-Length': json.length}};
       instance.post('/admin/insertBookF', json, headers).then(r => { console.log('Response from backend after sending a bookF: ' + r.data)
                                                         if (r.data === 1) {alert('Book is created.')}
                                                                                                    } ) }
+
+  function insertRawText(b: number, txt: string) {
+      const r = {book: b, text: txt}
+      const json = JSON.stringify(r)
+      instance.post('/admin/raw', json, headers)
+        .then(r => { console.log('Response from backend after sending a raw text: ' + r.data)
+                     if (r.data === 1) {alert('Text is saved.')}
+                     else {alert('Text is not saved.' )}  }) }
+
+  function insertChapters(bF: BookF) {
+    bF.chapters.map(ch => {
+      instance.post('/admin/insertChapter', JSON.stringify(ch), headers)
+        .then(r => { console.log('Response from backend after sending a chapter: ' + r.data) } )
+                            }
+                    )
+   }
 
    function MinHeightTextarea() {
      return (
@@ -50,7 +66,7 @@ export default function LoadBook() {
       console.log('In outer we have ' + chs.length + ' chapter.')
      }
      else res = res + 'not right. |-s: ' + nSticks + ', {-s: ' + nBrackets + '.'
-     if (isSave) { const bookF: BookF = {book: dummyB, chapters: chs}; insertBookF(bookF) }
+     if (isSave) { const bookF: BookF = {book: dummyB, chapters: chs}; insertChapters(bookF) }
      return res + ' Number of parsed chapters is ' + chs.length + '.'
    }
 

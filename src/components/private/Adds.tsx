@@ -44,13 +44,13 @@ function Workspace(token: string = '') {
   const headers = {headers: {'Authorization': token}};
 
   const [people, setPeople] = useState<People>(dummyP)
-  const getCreators = () => { instance.get<People>('/admin/getCreators', headers).then((p) => {setPeople(p.data) } ) }
+  const getCreators = () => { instance.get<People>('/admin/creators', headers).then((p) => {setPeople(p.data) } ) }
 
   const [library, setLibrary] = useState<Library>(dummyL)
-  const getLibrary = () => { instance.get<Library>('/admin/booksC', headers).then((l) => {setLibrary(l.data) } ) }
+  const getLibrary = () => { instance.get<Library>('/admin/books', headers).then((l) => {console.log(l.data); setLibrary(l.data) } ) }
 
   const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
-  const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooksC', headers).then((ml) => {setMetalibrary(ml.data) } ) }
+  const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooks', headers).then((ml) => {setMetalibrary(ml.data) } ) }
 
   useEffect( () => getCreators(), [] )
   useEffect( () => getLibrary(), [] )
@@ -126,7 +126,7 @@ function GetCreators(people: People, headers: any) {
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        {people.people.map(c => <Grid item xs={12} >
+        {people.people.filter(c => c.owner != null).map(c => <Grid item xs={12} >
                                 <Item>{c.english_name} <DeleteIcon onClick={()=>deleteCreator(c.id) } /></Item>
                                 </Grid>)}
       </Grid>
@@ -195,9 +195,10 @@ function GetBooks(library: Library, headers: any) {
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        {library.library.map(b =>
+        {library.library.filter(b => b.owner != null).map(b =>
         <Grid item xs={12} >
-        <Item> Название книги: {b.title}.<br/> Автор: {b.author}.<br/> Метакнига: {b.metabook}.<br/> Язык: {b.language}<br/> Владелец: {b.owner}<br/>
+        <Item> Название книги: {b.title}.<br/> Автор: {b.author}.<br/> Метакнига: {b.metabook}.<br/>
+               Язык: {b.language}<br/> Владелец: {b.owner}<br/>
          <Link to={bookAddLink(b.id)}>Добавить текст, если его нет</Link>
           <br/>
          <Link to={bookTextLink(b.id)}>Посмотреть текст, если есть</Link> <br/>
@@ -256,7 +257,7 @@ function GetMetabooks(ml: Metalibrary, headers: any) {
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        {ml.map(m =>
+        {ml.filter(mb => mb.owner != null).map(m =>
         <Grid item xs={12} >
         <Item>{m.title} <DeleteIcon onClick={()=>deleteMetabook(m.id) } />
         </Item> </Grid>)}
