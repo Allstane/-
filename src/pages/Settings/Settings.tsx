@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { getUserName, getUserRole } from "../../utils/helpers/userSettingsSaving";
-import { languages } from "../../utils/constants/language";
+import { getLanguages } from "../../utils/constants/language";
 import './style.css'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -36,18 +36,28 @@ const Settings = () => {
     const [userRole, setUserRole] = useState<String | null>(null)
     const [userName, setUserName] = useState<String | null>(null)
     const [mainLanguage, setMainLanguage] = useState<any>(null)
+    const [languages, setLanguages] = useState<any>([])
     const [isEditMode, toggleEditMode] = useState<Boolean>(false)
-
     const handleChangeLanguage = (value: any) => {
-        const selectedValue = languages.find(lang => lang.value === value) || languages[0]
+        const selectedValue = languages.find((lang: { value: string; }) => lang.value === value) || languages[0]
         setMainLanguage(selectedValue)
     }
 
     useEffect(() => {
         setUserRole(getUserRole())
         setUserName(getUserName())
-        setMainLanguage(languages[0])
+        getLanguages().then(res => {
+            const result = res.data.map((lang: any) => {return {
+                ...lang,
+                title: lang.self_name,
+                value: lang.english
+            }})
+           setLanguages(result) 
+        })
     }, [])
+    useEffect(() => {
+        setMainLanguage(languages[0])
+    }, [languages])
     return (
         <Container component="main" className="settings">
             <TableContainer component={Paper} sx={{ maxWidth: 1000, minWidth: 700 }}>
@@ -99,7 +109,7 @@ const Settings = () => {
                                     label="Age"
                                     onChange={(e) => handleChangeLanguage(e.target.value)}
                                 >
-                                    {languages.map((lang, idx) => (
+                                    {languages.map((lang: { value: string; title: string }, idx: React.Key ) => (
                                         <MenuItem key={idx} value={lang.value}>{lang.title}</MenuItem>
                                     ))}
                                 </Select>
