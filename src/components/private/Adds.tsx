@@ -52,9 +52,9 @@ function Workspace(token: string = '') {
   const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
   const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooks', headers).then((ml) => {setMetalibrary(ml.data) } ) }
 
-  useEffect( () => getCreators(), [] )
-  useEffect( () => getLibrary(), [] )
-  useEffect( () => getMetalibrary(), [] )
+  useEffect( () => getCreators(), [people] )
+  useEffect( () => getLibrary(), [library] )
+  useEffect( () => getMetalibrary(), [metalibrary] )
 
   return (
     <Box sx={{ width: '90%' }}>

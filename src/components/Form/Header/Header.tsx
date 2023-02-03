@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState} from "react";
 import {AccountCircle, LibraryBooks, Settings, Group, ExitToApp, ShoppingCart, CardGiftcard} from '@mui/icons-material'
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
