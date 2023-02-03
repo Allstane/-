@@ -1,5 +1,4 @@
 import React from 'react'
-import './../App.css'
 import {instance} from './../AxiosInstance'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -17,24 +16,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {User} from './../data/User'
 import {useNavigate} from "react-router-dom";
 import { saveToken as _saveToken } from '../../utils/helpers/tokenSettings';
+import { adminRoles } from '../../utils/constants/roles'
 import { saveUserName, saveUserRole } from '../../utils/helpers/userSettingsSaving'
-
-function Login(props: any) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
-}
+import './../App.css'
 
 const theme = createTheme()
 
-function SignIn() {
+export default function Private({toggleIsRoleToggled, isRoleToggled}: any) {
   const navigate = useNavigate()
 
   function saveToken(userName: string, userPass: string) {
@@ -45,8 +33,14 @@ function SignIn() {
       _saveToken(u.data.token)
       saveUserName(u.data.login)
       saveUserRole(u.data.role)
-      console.log(u)
-      navigate('/private/main'); 
+      return u.data.role
+    }).then((res) => {
+      toggleIsRoleToggled(!isRoleToggled)
+      if (adminRoles.includes(res)) {
+        navigate('/private/main')
+      } else {
+        navigate('/')
+      }
     })
   }
 
@@ -123,24 +117,8 @@ function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Login sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   )
 }
 
-export default function Private() {
-
-   return (
-    <body>
-      <header className="App-header">
-        <p>Project - Library: Admin</p>
-      </header>
-      <main className="App-main">
-        <SignIn />
-      </main>
-      <footer className="App-footer">
-      </footer>
-    </body>
-    )
-}

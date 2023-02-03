@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect} from "react";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,17 +7,17 @@ import ListItemText from '@mui/material/ListItemText';
 import {LibraryBooks, Groups, LocalLibrary, House, Security} from '@mui/icons-material'
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
-import { roles } from "../../../utils/constants/roles";
-import { getUserRole, isUserRoleChanged } from "../../../utils/helpers/userSettingsSaving";
+import { adminRoles } from "../../../utils/constants/roles";
+import { getUserRole} from "../../../utils/helpers/userSettingsSaving";
 import './style.css'
 
-const LayoutWrapper = ({children}) => {
-    const [isAdminRole, checkIsAdminRole] = useState('')
+const LayoutWrapper = ({children, isRoleToggled}) => {
+    const [isAdminRole, checkIsAdminRole] = useState(false)
     const [userRole, onChangeUserRole] = useState(getUserRole())
     useEffect(() => {
-        checkIsAdminRole(roles.includes(userRole))
-    }, [userRole, isUserRoleChanged()])
-
+        onChangeUserRole(getUserRole())
+        checkIsAdminRole(adminRoles.includes(userRole))
+    }, [userRole, isRoleToggled])
     return (
         <React.Fragment className='layout-wrapper'>
             <Header onChangeUserRole={onChangeUserRole}/>
