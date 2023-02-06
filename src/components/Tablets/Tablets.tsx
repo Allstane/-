@@ -10,17 +10,8 @@ import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import BookView from "./BookView"
 import Tags from "../Form/Tag/Tags"
-import {TagsT} from './../data/Tag'
-import {Note, Notes} from './../data/Note'
-
-const dummData = [
-    {book: 2, chapter: 2, owners_description: '', owners_title: 'sex'},
-    {book: 2, chapter: 2, owners_description: '', owners_title: 'comedy'},
-    {book: 2, chapter: 3, owners_description: '', owners_title: 'war'},
-    {book: 2, chapter: 4, owners_description: '', owners_title: 'detective'},
-    {book: 2, chapter: 4, owners_description: '', owners_title: 'drama'},
-    {book: 2, chapter: 5, owners_description: '', owners_title: 'comedy'},
-]
+import {Notes} from './../data/Note'
+import {TagInUse} from './../data/Tag'
 
 function Tablets() {
   const {ChId, LBId, RBId} = useParams()
@@ -29,7 +20,7 @@ function Tablets() {
   const [leftChapter, setLeftChapter] = useState<Chapter>(dummyCh)
   const [rightChapter, setRightChapter] = useState<Chapter>(dummyCh)
   const [metabookF, setMetabookF] = useState<MetabookF>(dummyMF)
-  const [tags, setTags] = useState<TagsT>();
+  const [tags, setTags] = useState<TagInUse[]>();
   const [isSplitView, onToggleSplitView] = useState(false)
   const [leftNotes, setLeftNotes] = useState<Notes>([])
   const [rightNotes, setRightNotes] = useState<Notes>([])
@@ -65,7 +56,7 @@ function Tablets() {
   }
 
   function updateChapters() {
-    const activeChapterTag = dummData.filter((el) => el.chapter.toString() === ChId)
+    const activeChapterTag = metabookF.tags.filter((el) => el.chapter.toString() === ChId)
     setTags(activeChapterTag)
   }
 
