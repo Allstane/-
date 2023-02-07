@@ -72,7 +72,7 @@ function Tablets() {
   }
   const PageSwitchWrapper = () => {
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} style={{margin: "30px 0"}}>
           <Pagination 
             page={+currentPage}
             count={(Number(maxBookPage) - 1)} 

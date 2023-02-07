@@ -1,8 +1,10 @@
 .layout-wrapper {
     position: relative;
+    overflow-y: hidden;
 }
 
 .side-menu {
+    top: 75px;
     width: 400px;
     height: 100%;
     position: fixed;
@@ -12,8 +14,9 @@
 }
 
 .content {
-    height: 100vh;
+    height: 100%;
     margin-left: 440px;
+    margin-top: 100px;
 }
 
 .menu-list .css-10hburv-MuiTypography-root{
