@@ -33,6 +33,15 @@ function Tablets() {
   }, [ChId, LBId, RBId])
 
   useEffect(() => {getNotes()}, [LBId, RBId])
+  useEffect(() => {
+    const getSplitViewValue = localStorage.getItem('isSplitView')
+    getSplitViewValue === 'true' ? handleChangeSplitView(true) : handleChangeSplitView(false)
+  }, [localStorage.getItem('isSplitView')])
+
+  function handleChangeSplitView(value = false) {
+    onToggleSplitView(value)
+    localStorage.setItem('isSplitView', JSON.stringify(value))
+  }
 
   function getNotes() {
     instance.get<Notes>("/notes/" + Number(LBId)).then((n) => {setLeftNotes(n.data) })
@@ -93,7 +102,7 @@ function Tablets() {
     <>
       <header className="App-header">
         <p>{findBook(metabookF, Number(LBId)).title}</p>
-        <Button variant="contained" onClick={() => onToggleSplitView(!isSplitView)}>Split View</Button>
+        <Button variant="contained" onClick={() => handleChangeSplitView(!isSplitView)}>Split View</Button>
         <Tags tags={tags}/>
       </header>
       <main className="App-main">
