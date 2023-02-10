@@ -19,7 +19,7 @@ const LayoutWrapper = ({children, isRoleToggled}) => {
         checkIsAdminRole(adminRoles.includes(userRole))
     }, [userRole, isRoleToggled])
     return (
-        <React.Fragment className='layout-wrapper'>
+        <div className='layout-wrapper'>
             <Header onChangeUserRole={onChangeUserRole}/>
             <div className="side-menu">
                 <List className="menu-list">
@@ -72,7 +72,7 @@ const LayoutWrapper = ({children, isRoleToggled}) => {
             <div className="content">
                 {children}
             </div>
-        </React.Fragment>
+        </div>
     )
 }
 
