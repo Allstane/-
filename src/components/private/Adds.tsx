@@ -110,6 +110,9 @@ function AddCreator(headers: any) {
            <MenuItem value={1}>Английский</MenuItem>
            <MenuItem value={2}>Русский</MenuItem>
            <MenuItem value={3}>Немецкий</MenuItem>
+           <MenuItem value={4}>Французский</MenuItem>
+           <MenuItem value={5}>Итальянский</MenuItem>
+           <MenuItem value={6}>Испанский</MenuItem>
            </Select>
       </div>
     </Box>
@@ -171,6 +174,9 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
            <MenuItem value={1}>Английский</MenuItem>
            <MenuItem value={2}>Русский</MenuItem>
            <MenuItem value={3}>Немецкий</MenuItem>
+           <MenuItem value={4}>Французский</MenuItem>
+           <MenuItem value={5}>Итальянский</MenuItem>
+           <MenuItem value={6}>Испанский</MenuItem>
            </Select>
       </div>
       <div>
@@ -236,6 +242,9 @@ function AddMetabook(people: People, headers: any) {
            <MenuItem value={1}>Английский</MenuItem>
            <MenuItem value={2}>Русский</MenuItem>
            <MenuItem value={3}>Немецкий</MenuItem>
+           <MenuItem value={4}>Французский</MenuItem>
+           <MenuItem value={5}>Итальянский</MenuItem>
+           <MenuItem value={6}>Испанский</MenuItem>
            </Select>
       </div>
       <div>
