@@ -29,7 +29,7 @@ export default function BookView(
   isSplitView: boolean
 ) {
   return (
-    <Box sx={{ width: "60%" }}>
+    <Box sx={{ width: "90%" }}>
       <Grid
         container
         justifyContent="center"

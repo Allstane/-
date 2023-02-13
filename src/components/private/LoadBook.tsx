@@ -3,6 +3,7 @@ import {useParams, Link} from 'react-router-dom'
 import './../App.css'
 import {instance} from './../AxiosInstance'
 import {Chapter, BookF, dummyB} from './../data/Chapter'
+import {Note} from './../data/Note'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button';
@@ -37,6 +38,11 @@ export default function LoadBook() {
                     )
    }
 
+  function insertNotes(notes: Note[]) {
+      instance.post('/admin/insertNotes', JSON.stringify(notes), headers)
+        .then(r => { console.log('Response from backend after sending notes: ' + r.data) } )
+   }
+
    function MinHeightTextarea() {
      return (
        <TextareaAutosize name="rawBook" minRows={10} placeholder="Text of a book" style={{ width: 800 }}
@@ -45,13 +51,23 @@ export default function LoadBook() {
    }
 
    function TypographyTheme() {
-     return <Box>
-     <div>{String(outer(rawBook, false))}</div>
-     <div><Button  onClick={()  => { outer(rawBook, true)   }}> Сохранить главы книги  </Button></div></Box>
-   }
 
-   function outer(book: string, isSave: boolean): string {
-     let text = book
+     function extractNotesAndChapters(book: string, isSave: boolean): string {
+        let text = book
+        let notes = new Array<Note>()
+        const endNoteSymbol = "@"
+        const numberOfNotes: number = book.split(endNoteSymbol).length - 1
+        for (let i = numberOfNotes; i > 0; i--) {
+                 const symbol = '[' + i + ']'
+                 const from = text.lastIndexOf('[' + i + ']')
+                 const to = text.lastIndexOf("@") + 1
+                 const rawNoteTxt = text.substring(from, to)
+                 const noteTxt = text.substring(from + String(i).length + 2, to - 1)
+                 const note: Note = {id: i, book: Number(bId), chapter: 0, txt: noteTxt}
+                 notes.push(note)
+                 text = text.replace(rawNoteTxt, '')
+               }
+
      let chs: Chapter[] = new Array<Chapter>()
      const nSticks: number = book.split('|').length - 1
      const nBrackets: number = book.split('{').length - 1
@@ -63,14 +79,16 @@ export default function LoadBook() {
          chs.push(ch)
          text = text.substring(text.indexOf("|") + 1)
        }
-      console.log('In outer we have ' + chs.length + ' chapter.')
      }
      else res = res + 'not right. |-s: ' + nSticks + ', {-s: ' + nBrackets + '.'
-     if (isSave) { const bookF: BookF = {book: dummyB, chapters: chs}; insertChapters(bookF) }
-     return res + ' Number of parsed chapters is ' + chs.length + '.'
-   }
 
-   function parseChapter(book: string, i: number, bId: number): Chapter {
+     notes.forEach(note => note.chapter = Number(chs.find(ch => ch.txt.includes('[' + note.id + ']'))?.id) )
+
+     if (isSave) { const bookF: BookF = {book: dummyB, chapters: chs}; insertChapters(bookF); insertNotes(notes) }
+     return res + ' Number of parsed chapters is ' + chs.length + '. Number of parsed chapters is ' + numberOfNotes + '.'
+     }
+
+     function parseChapter(book: string, i: number, bId: number): Chapter {
      const symbol = "{"
      const endTitleSymbol = "|"
      const begin = book.indexOf(symbol)
@@ -83,7 +101,12 @@ export default function LoadBook() {
      return ch
    }
 
-   const backUrl = "/private/" + token
+     return <Box>
+     <div>{extractNotesAndChapters(rawBook, false)}</div>
+     <div><Button  onClick={()  => { extractNotesAndChapters(rawBook, true) }}> Сохранить главы книги </Button></div></Box>
+   }
+
+   const backUrl = "/private/main"
 
    return (
     <body>

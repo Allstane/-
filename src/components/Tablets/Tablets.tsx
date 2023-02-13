@@ -75,9 +75,7 @@ function Tablets() {
   }
 
   function findBook(metabookF: MetabookF, bookId: number): Book {
-    const book: Book =
-      metabookF.books.find((book) => book.id === bookId) ?? dummyB
-    return book
+    return metabookF.books.find((book) => book.id === bookId) ?? dummyB
   }
   const PageSwitchWrapper = () => {
     return (
@@ -93,7 +91,6 @@ function Tablets() {
                   {...item}
                 />
             }}
-              
           />
         </Stack>
     )
