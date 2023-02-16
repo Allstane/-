@@ -7,7 +7,6 @@ import { Book, Chapter } from "../data/Chapter"
 import { MetabookF } from "../data/Metabook"
 import LanguageSelect from "./LanguageSelect"
 import {Notes} from './../data/Note'
-import './style.css'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -54,7 +53,7 @@ export default function BookView(
           <Grid container justifyContent="center" style={{marginBottom: '10px', textAlign: 'center'}}>
             <Item>{Number.isInteger(Number(leftChapter.title)) ? 'Chapter: ' : ''}{leftChapter.title}</Item>
           </Grid>
-          <Grid item className="book-text">
+          <Grid item>
             <Item>{leftChapter.txt}</Item>
             {leftNotes.filter(n => n.chapter === chId).map(n => <Item>{n.id}. {n.txt}.</Item>)}
           </Grid>
@@ -78,7 +77,7 @@ export default function BookView(
             <Grid container justifyContent="center" style={{marginBottom: '10px', textAlign: 'center'}}>
               <Item>{Number.isInteger(Number(rightChapter.title)) ? 'Chapter: ' : ''}{rightChapter.title}</Item>
             </Grid>
-            <Grid item className="book-text">
+            <Grid item>
               <Item>{rightChapter.txt}</Item>
               {rightNotes.filter(n => n.chapter === chId).map(n => <Item>{n.id}. {n.txt}.</Item>)}
             </Grid>

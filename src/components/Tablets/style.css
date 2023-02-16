@@ -1,8 +1,0 @@
-.book-text {
-    max-height: 700px;
-}
-
-.book-text > div{
-    max-height: 700px;
-    overflow-y: scroll;
-}
