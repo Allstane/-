@@ -113,6 +113,8 @@ function AddCreator(headers: any) {
            <MenuItem value={4}>Французский</MenuItem>
            <MenuItem value={5}>Итальянский</MenuItem>
            <MenuItem value={6}>Испанский</MenuItem>
+           <MenuItem value={7}>Латынь</MenuItem>
+           <MenuItem value={8}>Древнегреческий</MenuItem>
            </Select>
       </div>
     </Box>
@@ -177,6 +179,8 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
            <MenuItem value={4}>Французский</MenuItem>
            <MenuItem value={5}>Итальянский</MenuItem>
            <MenuItem value={6}>Испанский</MenuItem>
+           <MenuItem value={7}>Латынь</MenuItem>
+           <MenuItem value={8}>Древнегреческий</MenuItem>
            </Select>
       </div>
       <div>
@@ -217,17 +221,20 @@ function GetBooks(library: Library, headers: any) {
 function AddMetabook(people: People, headers: any) {
 
   const [title, setTitle] = useState('')
+  const [size, setSize] = useState(0)
   const [author, setAuthor] = useState(1)
   const [lang, setLang] = useState(1)
 
   function createMetabook() {
-      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0, size: 0, owner: 0}
+      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0, size: size, owner: 0}
       const json = JSON.stringify(m)
       instance.post('/admin/insertMetabook', json, headers)
         .then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
                      if (r.data === 1) {alert('Metabook is created.')}})}
 
   const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) }
+
+  const handleChangeSize = (event:React.ChangeEvent<HTMLInputElement>) => {setSize(Number(event.target.value)) }
 
   const handleChangeLang = (event: SelectChangeEvent<number>) =>  { setLang(Number(event.target.value)) }
 
@@ -237,6 +244,7 @@ function AddMetabook(people: People, headers: any) {
     <Box component="form" noValidate autoComplete="off">
       <div><Button  onClick={()  => {createMetabook()}}> Сохранить метакнигу  </Button></div>
       <div><TextField id="title" label="Название метакниги" multiline maxRows={4} onChange={handleChangeTitle} /> </div>
+      <div><TextField id="size" label="Размер метакниги" onChange={handleChangeSize} /> </div>
       <div>
          <Select id="language" label="Язык метакниги" value={lang} onChange={handleChangeLang}>
            <MenuItem value={1}>Английский</MenuItem>
@@ -245,6 +253,8 @@ function AddMetabook(people: People, headers: any) {
            <MenuItem value={4}>Французский</MenuItem>
            <MenuItem value={5}>Итальянский</MenuItem>
            <MenuItem value={6}>Испанский</MenuItem>
+           <MenuItem value={7}>Латынь</MenuItem>
+           <MenuItem value={8}>Древнегреческий</MenuItem>
            </Select>
       </div>
       <div>

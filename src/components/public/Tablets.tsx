@@ -1,17 +1,17 @@
-import { Chapter, dummyCh, Book, dummyB } from "./../data/Chapter"
-import { MetabookF, dummyMF } from "./../data/Metabook"
+import { Chapter, dummyCh, Book, dummyB } from "../data/Chapter"
+import { MetabookF, dummyMF } from "../data/Metabook"
 import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import "./../App.css"
-import { instance } from "./../AxiosInstance"
+import { instance } from "../AxiosInstance"
 import Button from "@mui/material/Button"
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import BookView from "./BookView"
 import Tags from "../Form/Tag/Tags"
-import {Notes} from './../data/Note'
-import {TagInUse} from './../data/Tag'
+import {Notes} from '../data/Note'
+import {TagInUse} from '../data/Tag'
 
 function Tablets() {
   const {ChId, LBId, RBId} = useParams()
