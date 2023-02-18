@@ -85,7 +85,7 @@ export default function LoadBook() {
      notes.forEach(note => note.chapter = Number(chs.find(ch => ch.txt.includes('[' + note.id + ']'))?.id) )
 
      if (isSave) { const bookF: BookF = {book: dummyB, chapters: chs}; insertChapters(bookF); insertNotes(notes) }
-     return res + ' Number of parsed chapters is ' + chs.length + '. Number of parsed chapters is ' + numberOfNotes + '.'
+     return res + ' Number of parsed chapters is ' + chs.length + '. Number of parsed notes is ' + numberOfNotes + '.'
      }
 
      function parseChapter(book: string, i: number, bId: number): Chapter {

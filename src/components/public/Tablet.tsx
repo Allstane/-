@@ -1,8 +1,8 @@
-import {BookF, dummyBF} from './../data/Chapter'
+import {BookF, dummyBF} from '../data/Chapter'
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import './../App.css'
-import {instance} from './../AxiosInstance'
+import {instance} from '../AxiosInstance'
 import GridBook from './GridForOne'
 
 function Tablet() {

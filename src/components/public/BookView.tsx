@@ -6,7 +6,7 @@ import Box from "@mui/material/Box"
 import { Book, Chapter } from "../data/Chapter"
 import { MetabookF } from "../data/Metabook"
 import LanguageSelect from "./LanguageSelect"
-import {Notes} from './../data/Note'
+import {Notes} from '../data/Note'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",

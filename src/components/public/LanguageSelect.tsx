@@ -30,6 +30,8 @@ export default function LanguageSelect(
     { n: 4, title: "Французский" },
     { n: 5, title: "Итальянский" },
     { n: 6, title: "Испанский" },
+    { n: 7, title: "Латынь" },
+    { n: 8, title: "Древнегреческий" },
   ]
 
   const handleTriggerSelect = (event: SelectChangeEvent) => {

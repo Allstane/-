@@ -34,28 +34,34 @@ const LayoutWrapper = ({children, isRoleToggled}) => {
                         </Link>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton>
-                        <ListItemIcon>
-                            <LibraryBooks />
-                        </ListItemIcon>
-                        <ListItemText primary="Library" />
-                        </ListItemButton>
+                        <Link to='/'>
+                            <ListItemButton>
+                            <ListItemIcon>
+                                <LibraryBooks />
+                            </ListItemIcon>
+                            <ListItemText primary="Library" />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton>
-                        <ListItemIcon>
-                            <LocalLibrary />
-                        </ListItemIcon>
-                        <ListItemText primary="Authors" />
-                        </ListItemButton>
+                        <Link to='/'>
+                            <ListItemButton>
+                            <ListItemIcon>
+                                <LocalLibrary />
+                            </ListItemIcon>
+                            <ListItemText primary="Authors" />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                     <ListItem disablePadding>
-                        <ListItemButton>
-                        <ListItemIcon>
-                            <Groups />
-                        </ListItemIcon>
-                        <ListItemText primary="Communities" />
-                        </ListItemButton>
+                        <Link to='/'>
+                            <ListItemButton>
+                            <ListItemIcon>
+                                <Groups />
+                            </ListItemIcon>
+                            <ListItemText primary="Communities" />
+                            </ListItemButton>
+                        </Link>
                     </ListItem>
                     {isAdminRole && <ListItem disablePadding>
                         <Link to='/private/main'>

@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import './index.css';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Tablets from './components/Tablets/Tablets';
-import Tablet from './components/Tablets/Tablet';
-import Nietzsche from './components/Tablets/Nietzsche'
+import Tablets from './components/public/Tablets';
+import Tablet from './components/public/Tablet';
+import Nietzsche from './components/public/Nietzsche'
 import Private from './components/private/Private'
 import LoadBook from './components/private/LoadBook'
 import Adds from './components/private/Adds'
