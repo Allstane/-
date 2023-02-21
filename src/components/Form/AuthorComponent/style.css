@@ -1,0 +1,33 @@
+.author-wrapper {
+    width: 260px;
+    border: 1px solid grey;
+    min-height: 350px;
+    border-radius: 5px;
+}
+
+.author-image {
+    width: 260px;
+}
+
+.author-name {
+    font-size: 21px;
+    margin: 0;
+    font-style: italic;
+}
+
+.author-description {
+    max-width: 260px;
+    height: 100%;
+    padding: 10px;
+}
+
+.language-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.author-life-date {
+    margin: 0 0 10px;
+    font-style: italic;
+    font-size: 14px;
+}

@@ -49,7 +49,7 @@ const Settings = () => {
         getLanguages().then(res => {
             const result = res.data.map((lang: any) => {return {
                 ...lang,
-                title: lang.self_name,
+                title: lang.english,
                 value: lang.english
             }})
            setLanguages(result) 

@@ -3,5 +3,6 @@ export const tagsColorSettings = {
     war: 'warning',
     detective: 'primary',
     drama: 'info',
-    comedy: 'success'
+    comedy: 'success',
+    proza: 'secondary'
 }
