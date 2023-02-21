@@ -13,7 +13,7 @@ import Admin from './components/private/Admin'
 import Settings from './pages/Settings/Settings';
 import { verifyToken } from './utils/helpers/tokenSettings';
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
-
+import Authors from './pages/Authors/Authors';
 interface IApplicationProps {}
 const Application: React.FunctionComponent<IApplicationProps> = () => {
   const isTokenVerified = verifyToken()
@@ -32,6 +32,7 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
                 <Route path='/settings' element={<Settings/>}/>
               </>
           )}
+          <Route path='/authors' element={<Authors/>} />
           <Route path='book/:bid' element={<Tablet />} />
           <Route path='bookc/:bid' element={<Tablet />} />
           <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />

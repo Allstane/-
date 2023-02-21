@@ -9,11 +9,15 @@ import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import { adminRoles } from "../../../utils/constants/roles";
 import { getUserRole} from "../../../utils/helpers/userSettingsSaving";
+import { getLanguages } from "../../../utils/constants/language";
 import './style.css'
 
 const LayoutWrapper = ({children, isRoleToggled}) => {
     const [isAdminRole, checkIsAdminRole] = useState(false)
     const [userRole, onChangeUserRole] = useState(getUserRole())
+    useEffect(() => {
+        getLanguages()
+    }, [])
     useEffect(() => {
         onChangeUserRole(getUserRole())
         checkIsAdminRole(adminRoles.includes(userRole))
@@ -44,7 +48,7 @@ const LayoutWrapper = ({children, isRoleToggled}) => {
                         </Link>
                     </ListItem>
                     <ListItem disablePadding>
-                        <Link to='/'>
+                        <Link to='/authors'>
                             <ListItemButton>
                             <ListItemIcon>
                                 <LocalLibrary />

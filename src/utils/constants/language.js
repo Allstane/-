@@ -8,6 +8,12 @@ export const languages = [
     {value: 'Poland', title: 'Polski'},
 ]
 
+export let allLanguages = [];
 export const getLanguages = () => {
-     return instance.get('/languages')
+    instance.get('/languages').then(response => allLanguages = response.data)
+    return instance.get('/languages')
+}
+
+export const getLanguageById = (id) => {
+    return allLanguages.find(lang => lang.id === id)
 }
