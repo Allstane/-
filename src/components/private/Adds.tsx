@@ -12,8 +12,8 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { getToken } from '../../utils/helpers/tokenSettings'
 
 export default function Adds() {
@@ -222,11 +222,12 @@ function AddMetabook(people: People, headers: any) {
 
   const [title, setTitle] = useState('')
   const [size, setSize] = useState(0)
+  const [year, setYear] = useState(0)
   const [author, setAuthor] = useState(1)
   const [lang, setLang] = useState(1)
 
   function createMetabook() {
-      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: 0, size: size, owner: 0}
+      const m: Metabook = {id: 0, author: author, language: lang, title: title, create_date: year, size: size, owner: 0}
       const json = JSON.stringify(m)
       instance.post('/admin/insertMetabook', json, headers)
         .then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
@@ -235,6 +236,8 @@ function AddMetabook(people: People, headers: any) {
   const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) }
 
   const handleChangeSize = (event:React.ChangeEvent<HTMLInputElement>) => {setSize(Number(event.target.value)) }
+
+  const handleChangeYear = (event:React.ChangeEvent<HTMLInputElement>) => {setYear(Number(event.target.value)) }
 
   const handleChangeLang = (event: SelectChangeEvent<number>) =>  { setLang(Number(event.target.value)) }
 
@@ -245,6 +248,7 @@ function AddMetabook(people: People, headers: any) {
       <div><Button  onClick={()  => {createMetabook()}}> Сохранить метакнигу  </Button></div>
       <div><TextField id="title" label="Название метакниги" multiline maxRows={4} onChange={handleChangeTitle} /> </div>
       <div><TextField id="size" label="Размер метакниги" onChange={handleChangeSize} /> </div>
+      <div><TextField id="year" label="Год написания" onChange={handleChangeYear} /> </div>
       <div>
          <Select id="language" label="Язык метакниги" value={lang} onChange={handleChangeLang}>
            <MenuItem value={1}>Английский</MenuItem>
