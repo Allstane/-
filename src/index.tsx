@@ -21,7 +21,7 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
     return <BrowserRouter>
         <LayoutWrapper isRoleToggled={isRoleToggled} >
           <Routes>
-          <Route path='/' element={<Nietzsche />} />
+          <Route path='/' element={<Authors />} />
           <Route path='/private' element={<Private  isRoleToggled={isRoleToggled} toggleIsRoleToggled={toggleIsRoleToggled} />} />
           <Route path='/private/main' element={<Adds />} />
           {isTokenVerified && (
