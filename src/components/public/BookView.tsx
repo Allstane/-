@@ -52,7 +52,7 @@ export default function BookView(
             </Item>
           </Grid>
           <Grid container justifyContent="center" style={{marginBottom: '10px', textAlign: 'center'}}>
-            <Item>{Number.isInteger(Number(leftChapter.title)) ? 'Chapter: ' : ''}{leftChapter.title}</Item>
+            <Item>{leftChapter.title}</Item>
           </Grid>
           <Grid item>
             <Item>{leftChapter.txt}</Item>
@@ -76,7 +76,7 @@ export default function BookView(
               </Item>
             </Grid>
             <Grid container justifyContent="center" style={{marginBottom: '10px', textAlign: 'center'}}>
-              <Item>{Number.isInteger(Number(rightChapter.title)) ? 'Chapter: ' : ''}{rightChapter.title}</Item>
+              <Item>{rightChapter.title}</Item>
             </Grid>
             <Grid item>
               <Item>{rightChapter.txt}</Item>

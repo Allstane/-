@@ -44,7 +44,7 @@ export default function Private() {
    return (
     <body>
       <header className="App-header">
-        <p>Project - Library: Admin</p>
+        <p>Alefowl.com: Admin</p>
       </header>
       <main className="App-main">
       {GridEditableBook(book)}

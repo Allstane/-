@@ -21,7 +21,7 @@ export default function Adds() {
    return (
     <body>
       <header className="App-header">
-        <p>Project - Library: Add books, authors and metabooks</p>
+        <p>Alefowl.com: Add books, authors and metabooks</p>
       </header>
       <main className="App-main">
         {Workspace(token)}

@@ -5,7 +5,7 @@ export default function Nietzsche() {
    return (
     <body>
       <header className="App-header">
-        <p>Project - Library</p>
+        <p>Alefowl.com</p>
       </header>
       <main className="App-main">
         <Images/>
