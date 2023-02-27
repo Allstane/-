@@ -82,7 +82,7 @@ function Tablets() {
         <Stack spacing={2} style={{margin: "30px 0"}}>
           <Pagination 
             page={+currentPage}
-            count={(Number(maxBookPage) - 1)} 
+            count={Number(maxBookPage)} 
             color="primary" 
             renderItem={(item) => {
               return <PaginationItem
