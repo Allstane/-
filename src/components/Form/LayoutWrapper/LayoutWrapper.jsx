@@ -33,7 +33,7 @@ const LayoutWrapper = ({children, isRoleToggled}) => {
                             <ListItemIcon>
                                 <House />
                             </ListItemIcon>
-                            <ListItemText primary="Main Page" />
+                            <ListItemText primary="Nietzsche" />
                             </ListItemButton>
                         </Link>
                     </ListItem>
@@ -53,17 +53,7 @@ const LayoutWrapper = ({children, isRoleToggled}) => {
                             <ListItemIcon>
                                 <LocalLibrary />
                             </ListItemIcon>
-                            <ListItemText primary="Authors" />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                    <ListItem disablePadding>
-                        <Link to='/'>
-                            <ListItemButton>
-                            <ListItemIcon>
-                                <Groups />
-                            </ListItemIcon>
-                            <ListItemText primary="Communities" />
+                            <ListItemText primary="Other authors" />
                             </ListItemButton>
                         </Link>
                     </ListItem>

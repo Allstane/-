@@ -21,17 +21,17 @@ export default function Imagest() {
 
 const itemData = [
   {
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-    title: 'Breakfast',
+    img: './unknown.jpeg',
+    title: 'Menschliches',
     link: '/lbid/10/rbid/10/chid/2'
   },
   {
-    img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+    img: './unknown.jpeg',
     title: 'Burger',
     link: '/lbid/15/rbid/15/chid/3'
   },
   {
-    img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+    img: './unknown.jpeg',
     title: 'Camera',
     link: '/lbid/16/rbid/16/chid/2'
   },
@@ -51,7 +51,7 @@ const itemData = [
     link: '/lbid/3/rbid/8/chid/3'
   },
   {
-    img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+    img: './unknown.jpeg',
     title: 'Fern',
     link: '/lbid/14/rbid/14/chid/2'
   },

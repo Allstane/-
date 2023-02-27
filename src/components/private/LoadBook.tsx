@@ -111,7 +111,7 @@ export default function LoadBook() {
    return (
     <body>
       <header className="App-header">
-        <p>Project - Library: Add text <br/> <Link to={backUrl}> Back </Link> </p>
+        <p>Alefowl.com: Add text <br/> <Link to={backUrl}> Back </Link> </p>
       </header>
       <main className="App-main">
         {TypographyTheme()}

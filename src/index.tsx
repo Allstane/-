@@ -15,13 +15,16 @@ import { verifyToken } from './utils/helpers/tokenSettings';
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
 import Authors from './pages/Authors/Authors';
 interface IApplicationProps {}
+
 const Application: React.FunctionComponent<IApplicationProps> = () => {
+
   const isTokenVerified = verifyToken()
-  const [isRoleToggled, toggleIsRoleToggled] = useState<Boolean>(false) 
+  const [isRoleToggled, toggleIsRoleToggled] = useState<Boolean>(false)
+
     return <BrowserRouter>
         <LayoutWrapper isRoleToggled={isRoleToggled} >
           <Routes>
-          <Route path='/' element={<Authors />} />
+          <Route path='/' element={<Nietzsche />} />
           <Route path='/private' element={<Private  isRoleToggled={isRoleToggled} toggleIsRoleToggled={toggleIsRoleToggled} />} />
           <Route path='/private/main' element={<Adds />} />
           {isTokenVerified && (
