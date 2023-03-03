@@ -14,6 +14,9 @@ import Settings from './pages/Settings/Settings';
 import { verifyToken } from './utils/helpers/tokenSettings';
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
 import Authors from './pages/Authors/Authors';
+import Registration from './components/public/Registration/Registation';
+
+
 interface IApplicationProps {}
 
 const Application: React.FunctionComponent<IApplicationProps> = () => {
@@ -35,6 +38,7 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
                 <Route path='/settings' element={<Settings/>}/>
               </>
           )}
+          <Route path='/registration' element={<Registration/>}/>
           <Route path='/authors' element={<Authors/>} />
           <Route path='book/:bid' element={<Tablet />} />
           <Route path='bookc/:bid' element={<Tablet />} />
