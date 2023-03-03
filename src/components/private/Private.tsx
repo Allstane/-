@@ -110,7 +110,7 @@ export default function Private({toggleIsRoleToggled, isRoleToggled}: any) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/registration" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
