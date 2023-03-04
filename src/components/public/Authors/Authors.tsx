@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react"
 import { Container, Grid, Stack, Pagination } from "@mui/material"
-import { instance } from "../../components/AxiosInstance"
-import { Creator } from "../../components/data/Creator"
+import { instance } from "../../AxiosInstance"
+import { Creator } from "../../../components/data/Creator"
 import { Link } from "react-router-dom"
-import AuthorComponent from "../../components/Form/AuthorComponent/AuthorComponent"
+import AuthorComponent from "../../../components/Form/AuthorComponent/AuthorComponent"
 import './style.css'
 
 const Authors = () => {

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import './index.css';
-import ReactDOM from 'react-dom/client';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Tablets from './components/public/Tablets';
-import Tablet from './components/public/Tablet';
+import React, {useState} from 'react'
+import './index.css'
+import ReactDOM from 'react-dom/client'
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import Tablets from './components/public/Tablets'
+import Tablet from './components/public/Tablet'
 import Nietzsche from './components/public/Nietzsche'
 import Private from './components/private/Private'
 import LoadBook from './components/private/LoadBook'
@@ -13,11 +13,11 @@ import Admin from './components/private/Admin'
 import Settings from './components/private/Settings/Settings'
 import { verifyToken } from './components/helpers/tokenSettings'
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper'
-import Authors from './pages/Authors/Authors'
-import AuthorBooks from './pages/Authors/AuthorBooks/AuthorBooks';
+import Library from './components/public/Library/Library'
+import Authors from './components/public/Authors/Authors'
+import AuthorBooks from './components/public/Authors/AuthorBooks/AuthorBooks'
 import Registration from './components/public/Registration/Registation'
 import ContentView from './components/public/ContentView'
-
 interface IApplicationProps {}
 
 const Application: React.FunctionComponent<IApplicationProps> = () => {
@@ -39,6 +39,7 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
                 <Route path='/settings' element={<Settings/>}/>
               </>
           )}
+          <Route path='library' element={<Library/>} />
           <Route path='/registration' element={<Registration/>}/>
           <Route path='/authors' element={<Authors/>} />
           <Route path='/author/:authorId' element={<AuthorBooks/>} />
