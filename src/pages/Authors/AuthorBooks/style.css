@@ -1,0 +1,13 @@
+.author-books-header {
+    text-align: center;
+    color: black;
+}
+
+.author-books-wrapper {
+    padding-bottom: 30px;
+}
+
+.pagination-wrapper {
+    padding-bottom: 20px;
+    align-items: center;
+}

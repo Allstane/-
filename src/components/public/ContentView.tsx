@@ -1,6 +1,4 @@
 import './../App.css'
-import Images from './ImageList'
-import BooksList from './Books'
 import Content from './Content'
 
 export default function ContentView() {

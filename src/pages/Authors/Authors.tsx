@@ -1,31 +1,28 @@
-import React, {useState, useEffect} from "react";
-import { Container, Grid, Stack, Pagination } from "@mui/material";
-import { instance } from "../../components/AxiosInstance";
-import { Author } from "./AuthorTypes";
-// import { Link } from "react-router-dom";
-import AuthorComponent from "../../components/Form/AuthorComponent/AuthorComponent";
+import React, {useState, useEffect} from "react"
+import { Container, Grid, Stack, Pagination } from "@mui/material"
+import { instance } from "../../components/AxiosInstance"
+import { Creator } from "../../components/data/Creator"
+import { Link } from "react-router-dom"
+import AuthorComponent from "../../components/Form/AuthorComponent/AuthorComponent"
 import './style.css'
 
 const Authors = () => {
 
-    const [authors, setAuthors] = useState<[ Author] | []>([])
-    useEffect(() => {
-        instance.get<[Author]>("/authors")
-            .then((response) => {
-                setAuthors(response.data)
-            })
-    }, [])
+    const [authors, setAuthors] = useState<Creator[]>([])
+    useEffect(() => { instance.get<[Creator]>("/authors").then((response) => { setAuthors(response.data) }) }, [])
 
     return <Container>
         <Grid container spacing={4} className="authors-wrapper">
-            {authors.map((data: Author) => {
+            {authors.filter(a => a.is_author === true).map((data: Creator) => {
                 return <Grid item key={data.id}>
-                    <AuthorComponent  
-                        authorName={data.english_name}
-                        birthDate={data.birth_date}
-                        deathDate={data.death_date} 
-                        language={data.original_language} 
-                    />
+                    <Link to={`/author/${data.id}`} style={{textDecoration: 'none', color: 'black'}}>
+                        <AuthorComponent  
+                            authorName={data.english_name}
+                            birthDate={data.birth_date}
+                            deathDate={data.death_date} 
+                            language={data.original_language} 
+                        />
+                    </Link>
                 </Grid>
             })}
         </Grid>
