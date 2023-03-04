@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react"
 import { Container, Grid, Stack, Pagination } from "@mui/material"
-import { instance } from "../../../components/AxiosInstance"
-import { Book } from "../../../components/data/Chapter"
-import { Creator, dummyC } from "../../../components/data/Creator"
+import { instance } from "../../../AxiosInstance"
+import { Book } from "../../../data/Chapter"
+import { Creator, dummyC } from "../../../data/Creator"
 import { useParams, Link } from "react-router-dom"
-import AuthorBookComponent from "../../../components/public/AuthorBookComponent/AuthorBookComponent"
+import AuthorBookComponent from "../../../public/AuthorBookComponent/AuthorBookComponent"
 import './style.css'
 
 const AuthorBooks = () => {

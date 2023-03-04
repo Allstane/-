@@ -19,6 +19,7 @@ export type Book = {
   is_ready: boolean
   is_visible: boolean
   owner: number
+  tags?: any
 }
 
 export type BookF = {

@@ -47,42 +47,43 @@ function Workspace(token: string = '') {
   const getCreators = () => { instance.get<People>('/admin/creators', headers).then((p) => {setPeople(p.data) } ) }
 
   const [library, setLibrary] = useState<Library>(dummyL)
-  const getLibrary = () => { instance.get<Library>('/admin/books', headers).then((l) => {console.log(l.data); setLibrary(l.data) } ) }
+  const getLibrary = () => { instance.get<Library>('/admin/books', headers).then((l) => {setLibrary(l.data) } ) }
 
   const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
   const getMetalibrary = () => { instance.get<Metalibrary>('/admin/metabooks', headers).then((ml) => {setMetalibrary(ml.data) } ) }
 
-  useEffect( () => getCreators(), [people] )
-  useEffect( () => getLibrary(), [library] )
-  useEffect( () => getMetalibrary(), [metalibrary] )
-
+  useEffect( () => {
+    getLibrary()
+    getCreators()
+    getMetalibrary()
+  }, [] )
   return (
     <Box sx={{ width: '90%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
         <Grid item xs={6}>
-          <Item>Вставка книги {AddBook(people, metalibrary, headers)}</Item>
+          <Item>Вставка книги {AddBook(people, metalibrary, headers, getLibrary)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Все книги {GetBooks(library, headers)}</Item>
+          <Item>Все книги {GetBooks(library, headers, getLibrary)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Вставка автора или переводчика {AddCreator(headers)}</Item>
+          <Item>Вставка автора или переводчика {AddCreator(headers, getCreators)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Все авторы или переводчики {GetCreators(people, headers)}</Item>
+          <Item>Все авторы или переводчики {GetCreators(people, headers, getCreators)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Вставка метакниги {AddMetabook(people, headers)}</Item>
+          <Item>Вставка метакниги {AddMetabook(people, headers, getMetalibrary)}</Item>
         </Grid>
         <Grid item xs={6}>
-          <Item>Все метакниги {GetMetabooks(metalibrary, headers)}</Item>
+          <Item>Все метакниги {GetMetabooks(metalibrary, headers, getMetalibrary)}</Item>
         </Grid>
       </Grid>
     </Box>
   )
 }
 
-function AddCreator(headers: any) {
+function AddCreator(headers: any, getCreators: Function) {
 
   const [name, setName] = useState('')
   const [lang, setLang] = useState(1)
@@ -95,7 +96,8 @@ function AddCreator(headers: any) {
       console.log('Send a creator to backend for saving: ' + json)
       instance.post('/admin/insertCreator', json, headers)
         .then(r => { console.log('Response from backend after sending a creator: ' + r.data)
-                     if (r.data === 1) {alert('Creator is created.')}})}
+          getCreators()
+        })}
 
   const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setName(event.target.value)}
 
@@ -121,24 +123,28 @@ function AddCreator(headers: any) {
   )
 }
 
-function GetCreators(people: People, headers: any) {
-
-  function deleteCreator(id: number) { instance.delete('/admin/deleteCreator/' + id, headers)
-                              .then(r => { console.log('Response from backend after deleting a creator: ' + r.data)
-                                    if (r.data === 1) {alert('Creator is deleted.')}
-                                      } ) }
+function GetCreators(people: People, headers: any, getCreators: Function) {
+  function deleteCreator(id: number) { 
+    instance.delete('/admin/deleteCreator/' + id, headers)
+      .then(r => {
+         console.log('Response from backend after deleting a creator: ' + r.data)
+         getCreators()
+      } ) 
+  }
 
   return (
     <Box sx={{ width: '100%' }}>
       <Grid container justifyContent="center" rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
-        {people.people.filter(c => c.owner != null).map(c => <Grid item xs={12} >
-                                <Item>{c.english_name} <DeleteIcon onClick={()=>deleteCreator(c.id) } /></Item>
-                                </Grid>)}
+        {people.people.filter(c => c.owner != null).map(c => 
+          <Grid item xs={12} >
+            <Item>{c.english_name} <DeleteIcon onClick={()=>deleteCreator(c.id) } /></Item>
+          </Grid>)
+        }
       </Grid>
     </Box>
   )}
 
-function AddBook(people: People, ml: Metalibrary, headers: any) {
+function AddBook(people: People, ml: Metalibrary, headers: any, getLibrary: Function) {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
@@ -152,8 +158,10 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
       const json = JSON.stringify(b)
       console.log('Send a book to backend for saving: ' + json)
       instance.post('/admin/insertBook', json, headers)
-        .then(r => { console.log('Response from backend after sending a book: ' + r.data)
-                     if (r.data === 1) {alert('Book is created.')}})}
+        .then(r => { 
+          console.log('Response from backend after sending a book: ' + r.data)
+          getLibrary() 
+        })}
 
   const handleChangeName = (event:React.ChangeEvent<HTMLInputElement>) => { setTitle(event.target.value)}
 
@@ -192,11 +200,14 @@ function AddBook(people: People, ml: Metalibrary, headers: any) {
   )
 }
 
-function GetBooks(library: Library, headers: any) {
+function GetBooks(library: Library, headers: any, getLibrary: Function) {
 
   function deleteBook(id: number) { instance.delete('/admin/deleteBook/' + id, headers)
-                              .then(r => { console.log('Response from backend after deleting of a book: ' + r.data)
-                                           if (r.data === 1) {alert('Book is deleted.')}})}
+    .then(r => { 
+      console.log('Response from backend after deleting of a book: ' + r.data)
+      getLibrary()
+    })
+  }
 
   const bookAddLink = (id: number) => "/private/"+id+"/load"
 
@@ -218,7 +229,7 @@ function GetBooks(library: Library, headers: any) {
     </Box>
   )}
 
-function AddMetabook(people: People, headers: any) {
+function AddMetabook(people: People, headers: any, getMetalibrary: Function) {
 
   const [title, setTitle] = useState('')
   const [size, setSize] = useState(0)
@@ -231,7 +242,7 @@ function AddMetabook(people: People, headers: any) {
       const json = JSON.stringify(m)
       instance.post('/admin/insertMetabook', json, headers)
         .then(r => { console.log('Response from backend after sending a metabook: ' + r.data)
-                     if (r.data === 1) {alert('Metabook is created.')}})}
+        getMetalibrary()})}
 
   const handleChangeTitle = (event:React.ChangeEvent<HTMLInputElement>) => {setTitle(event.target.value) }
 
@@ -270,12 +281,12 @@ function AddMetabook(people: People, headers: any) {
   )
 }
 
-function GetMetabooks(ml: Metalibrary, headers: any) {
+function GetMetabooks(ml: Metalibrary, headers: any, getMetalibrary: Function) {
 
   function deleteMetabook(id: number) { instance.delete('/admin/deleteMetabook/' + id, headers)
                              .then(r => { console.log('Response from backend after deleting a metabook: ' + r.data)
-                             if (r.data === 1) {alert('Metabook is deleted.')}
-                                            } ) }
+                             getMetalibrary()   
+          } ) }
 
   return (
     <Box sx={{ width: '100%' }}>

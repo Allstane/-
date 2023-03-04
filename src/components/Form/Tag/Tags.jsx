@@ -8,7 +8,7 @@ const Tags = ({tags = []}) => {
   return (
     <Stack spacing={1} alignItems="center">
       <Stack direction="row" spacing={1} className='tags-wrapper'>
-        {tags.map((tag) => <Chip label={tag.owners_title} color="primary"/>)}
+        {tags.map((tag, idx) => <Chip key={idx} label={tag.owners_title} color='primary'/>)}
       </Stack>
     </Stack>
   );
