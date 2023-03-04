@@ -7,21 +7,20 @@ import ListItemText from '@mui/material/ListItemText';
 import {LibraryBooks, Groups, LocalLibrary, House, Security} from '@mui/icons-material'
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
-import { adminRoles } from "../../../utils/constants/roles";
-import { getUserRole} from "../../../utils/helpers/userSettingsSaving";
-import { getLanguages } from "../../../utils/constants/language";
+import { adminRoles } from "../../constants/roles";
+import { getUserRole} from "../../helpers/userSettingsSaving";
+import { getLanguages } from "../../constants/language";
 import './style.css'
 
 const LayoutWrapper = ({children, isRoleToggled}) => {
     const [isAdminRole, checkIsAdminRole] = useState(false)
     const [userRole, onChangeUserRole] = useState(getUserRole())
-    useEffect(() => {
-        getLanguages()
-    }, [])
+
+    useEffect(() => { getLanguages()  }, [])
     useEffect(() => {
         onChangeUserRole(getUserRole())
-        checkIsAdminRole(adminRoles.includes(userRole))
-    }, [userRole, isRoleToggled])
+        checkIsAdminRole(adminRoles.includes(userRole)) }, [userRole, isRoleToggled])
+
     return (
         <div className='layout-wrapper'>
             <Header onChangeUserRole={onChangeUserRole}/>

@@ -15,9 +15,9 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import {User} from './../data/User'
 import {useNavigate} from "react-router-dom";
-import { saveToken as _saveToken } from '../../utils/helpers/tokenSettings';
-import { adminRoles } from '../../utils/constants/roles'
-import { saveUserName, saveUserRole } from '../../utils/helpers/userSettingsSaving'
+import { saveToken as _saveToken } from '../helpers/tokenSettings';
+import { adminRoles } from '../constants/roles'
+import { saveUserName, saveUserRole } from '../helpers/userSettingsSaving'
 import './../App.css'
 
 const theme = createTheme()

@@ -1,5 +1,5 @@
 import React from "react";
-import { getLanguageById } from "../../../utils/constants/language";
+import { getLanguageById } from "../../constants/language";
 import './style.css'
 const AuthorComponent = ({birthDate, deathDate, language, authorName}: any) => {
     const originLanguage = getLanguageById(language).english

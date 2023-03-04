@@ -24,9 +24,6 @@ export default function BookC() {
 
    return (
     <body>
-      <header className="App-header">
-        <p>Alefowl.com: Book</p>
-      </header>
       <main className="App-main">
         {gridBook(bookF, notes)}
       </main>

@@ -1,15 +1,14 @@
 import './../App.css'
 import Images from './ImageList'
 import BooksList from './Books'
-import BookContent from './Content'
+import Content from './Content'
 
-export default function Nietzsche() {
+export default function ContentView() {
 
    return (
     <body>
       <main className="App-main">
-        <Images />
-        {BooksList(1)}
+        <Content />
       </main>
       <footer className="App-footer"><p> </p>
       </footer>

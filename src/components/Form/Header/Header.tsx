@@ -9,10 +9,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import './style.css'
-
-import { verifyToken } from "../../../utils/helpers/tokenSettings";
-import { getUserName } from "../../../utils/helpers/userSettingsSaving";
-import { clearLocalStorage } from "../../../utils/helpers/clearLocalStorage";
+import { verifyToken } from "../../helpers/tokenSettings";
+import { getUserName } from "../../helpers/userSettingsSaving";
+import { clearLocalStorage } from "../../helpers/clearLocalStorage";
 
 interface UserRoleProps {
     onChangeUserRole: () => void

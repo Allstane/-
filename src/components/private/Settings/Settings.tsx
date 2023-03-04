@@ -8,8 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { getUserName, getUserRole } from "../../utils/helpers/userSettingsSaving";
-import { getLanguages } from "../../utils/constants/language";
+import { getUserName, getUserRole } from "../../helpers/userSettingsSaving";
+import { getLanguages } from "../../constants/language";
 import './style.css'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

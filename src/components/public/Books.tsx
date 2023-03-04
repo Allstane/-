@@ -1,0 +1,29 @@
+import React, {useState, useEffect} from 'react'
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import {Book} from '../data/Chapter'
+import {instance} from './../AxiosInstance'
+import {Link} from 'react-router-dom'
+
+export default function BooksList(author: number) {
+  const [books, setBooks] = useState<Book[]>([])
+  const getBooks = () =>  { instance.get<Book[]>('/books/' + author).then((bs) => { setBooks(bs.data) } ) }
+
+  useEffect( () => getBooks(), [books] )
+
+  const bookContentLink = (id: number) => "/content/"+id
+
+  return (
+    <List sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper' }}>
+        { books.sort((b1,b2)=> b1.metabook - b2.metabook)
+               .map(b => <ListItem alignItems="flex-start">
+                         <Link to={bookContentLink(b.id)}><ListItemText primary={b.title} /></Link>
+                         </ListItem>) }
+    </List>
+  )
+}
