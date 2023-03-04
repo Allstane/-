@@ -14,6 +14,7 @@ import Settings from './components/private/Settings/Settings'
 import { verifyToken } from './components/helpers/tokenSettings'
 import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper'
 import Authors from './pages/Authors/Authors'
+import AuthorBooks from './pages/Authors/AuthorBooks/AuthorBooks';
 import Registration from './components/public/Registration/Registation'
 import ContentView from './components/public/ContentView'
 
@@ -40,6 +41,7 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
           )}
           <Route path='/registration' element={<Registration/>}/>
           <Route path='/authors' element={<Authors/>} />
+          <Route path='/author/:authorId' element={<AuthorBooks/>} />
           <Route path='/book/:bid' element={<Tablet />} />
           <Route path='/content/:bid' element={<ContentView /> } />
           <Route path='/lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
