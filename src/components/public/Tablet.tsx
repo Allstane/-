@@ -1,19 +1,19 @@
-import {BookF, dummyBF} from '../data/Chapter'
 import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import './../App.css'
 import {instance} from '../AxiosInstance'
 import GridBook from './GridForOne'
+import {BookF, dummyBF} from '../data/Chapter'
 
 function Tablet() {
 
    const {bid} = useParams()
    const [book, setBook] = useState<BookF>(dummyBF)
 
-   const getBook = () => {
-         instance.get<BookF>('/bookF/'+Number(bid)).then((b) => {setBook(b.data) } )
-   }
-   useEffect( () => getBook(),  [] )
+   const getBookF = () => {  instance.get<BookF>('/bookF/'+Number(bid)).then((b) => {setBook(b.data) } ) }
+
+   useEffect( () => getBookF(),  [] )
+
    return (
     <body>
       <header className="App-header">
@@ -27,4 +27,5 @@ function Tablet() {
     </body>
     )
 }
+
 export default Tablet

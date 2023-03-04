@@ -10,12 +10,12 @@ import LoadBook from './components/private/LoadBook'
 import Adds from './components/private/Adds'
 import BookC from './components/private/BookC'
 import Admin from './components/private/Admin'
-import Settings from './pages/Settings/Settings';
-import { verifyToken } from './utils/helpers/tokenSettings';
-import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper';
-import Authors from './pages/Authors/Authors';
-import Registration from './components/public/Registration/Registation';
-
+import Settings from './components/private/Settings/Settings'
+import { verifyToken } from './components/helpers/tokenSettings'
+import LayoutWrapper from './components/Form/LayoutWrapper/LayoutWrapper'
+import Authors from './pages/Authors/Authors'
+import Registration from './components/public/Registration/Registation'
+import ContentView from './components/public/ContentView'
 
 interface IApplicationProps {}
 
@@ -40,9 +40,9 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
           )}
           <Route path='/registration' element={<Registration/>}/>
           <Route path='/authors' element={<Authors/>} />
-          <Route path='book/:bid' element={<Tablet />} />
-          <Route path='bookc/:bid' element={<Tablet />} />
-          <Route path='lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
+          <Route path='/book/:bid' element={<Tablet />} />
+          <Route path='/content/:bid' element={<ContentView /> } />
+          <Route path='/lbid/:LBId/rbid/:RBId/chid/:ChId' element={<Tablets />} />
           </Routes>
         </LayoutWrapper>
     </BrowserRouter>

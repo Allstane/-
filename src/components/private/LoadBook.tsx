@@ -7,7 +7,7 @@ import {Note} from './../data/Note'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button';
-import { getToken } from '../../utils/helpers/tokenSettings'
+import { getToken } from '../helpers/tokenSettings'
 
 export default function LoadBook() {
    const token = getToken()

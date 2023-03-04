@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { getToken } from '../../utils/helpers/tokenSettings'
+import { getToken } from '../helpers/tokenSettings'
 
 export default function Adds() {
    const token = getToken()
