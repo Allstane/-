@@ -1,7 +1,7 @@
 import { Chapter, dummyCh, Book, dummyB } from "../data/Chapter"
 import { MetabookF, dummyMF } from "../data/Metabook"
 import { useState, useEffect } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import "./../App.css"
 import { instance } from "../AxiosInstance"
 import Button from "@mui/material/Button"
@@ -24,12 +24,14 @@ function Tablets() {
   const [isSplitView, onToggleSplitView] = useState(false)
   const [leftNotes, setLeftNotes] = useState<Notes>([])
   const [rightNotes, setRightNotes] = useState<Notes>([])
-
+  const navigate = useNavigate()
   useEffect(() => {
     getMetabookF()
     getChapters()
     updateChapters()
-    setCurrentPage(Number(ChId))
+    if (ChId) {
+      setCurrentPage(+ChId)
+    }
   }, [ChId, LBId, RBId])
 
   useEffect(() => {getNotes()}, [LBId, RBId])
@@ -70,7 +72,13 @@ function Tablets() {
   }
 
   function getChapters() {
-    instance.get<Chapter>("/book/" + Number(LBId) + "/chapter/" + Number(ChId)).then((ch) => {setLeftChapter(ch.data) })
+    instance.get<Chapter>("/book/" + Number(LBId) + "/chapter/" + Number(ChId)).then((ch: any) => {
+      setLeftChapter(ch.data) 
+      if (maxBookPage === currentPage) return
+      if (!ch.data.txt || ch.data.txt === "null") {
+        navigate(`/lbid/${LBId}/rbid/${RBId}/chid/${Number(ChId) + 1}`)
+      }
+    })
     instance.get<Chapter>("/book/" + Number(RBId) + "/chapter/" + Number(ChId)).then((ch) => {setRightChapter(ch.data)})
   }
 
@@ -78,11 +86,28 @@ function Tablets() {
     return metabookF.books.find((book) => book.id === bookId) ?? dummyB
   }
   const PageSwitchWrapper = () => {
+    const isEmptyChapter = !leftChapter.txt || leftChapter.txt === "null"
     return (
         <Stack spacing={2} style={{margin: "30px 0"}}>
           <Pagination 
             page={+currentPage}
-            count={Number(maxBookPage)} 
+            count={Number(maxBookPage)}
+            onChange={(e, page) => {
+              if (isEmptyChapter) {
+                if (page === +currentPage - 1) {
+                  if ((+currentPage - 1) !== 0 || (+currentPage - 1) !== 1) {
+                    setCurrentPage(page - 2)
+                  } else if ((+currentPage - 1) !== 2) {
+                    setCurrentPage(page - 1)
+                  }
+                }
+                if (page === +currentPage + 1) {
+                  setCurrentPage(page + 2)
+                }
+              } else {
+                setCurrentPage(page)
+              }
+            }} 
             color="primary" 
             renderItem={(item) => {
               return <PaginationItem
