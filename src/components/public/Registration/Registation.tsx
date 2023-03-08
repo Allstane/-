@@ -10,11 +10,10 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import {useNavigate} from "react-router-dom";
 import { RegData } from '../../data/User'
-
+import PasswordValidation from '../../helpers/passwordValidation'
 
 const Registration = () => {
   const navigate = useNavigate()
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -37,17 +36,25 @@ const Registration = () => {
       langs: null, 
       location: null, 
     }
-    if (emailValidation) {
+    const passValidation = PasswordValidation(userPass)
+    if (emailValidation && firstname && login && surname && passValidation) {
       instance.post<RegData>('/reg', JSON.stringify(reqData), {headers: {'Content-Type': 'application/json'}})
         .then(() => {
           alert('Successfully created!')
           navigate('/private')
         })
-    } else {
+    } else if (!emailValidation) {
       alert('Invalid email. Please enter correct email.')
+    } else if (!firstname) {
+      alert('Please enter your first name.')
+    } else if (!login) {
+      alert('Please enter your login.')
+    } else if (!surname) {
+      alert('Please enter your last name.')
+    } else if (!passValidation) {
+      alert('Invalid password. Please enter correct password.')
     }
-}
-
+  }
   return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -112,6 +119,7 @@ const Registration = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              helperText="Password must have at list one upper letter, lower letter, digits and minimum length is 8"
             />
             <Button
               type="submit"
