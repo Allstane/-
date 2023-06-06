@@ -18,6 +18,7 @@ import Authors from './components/public/Authors/Authors'
 import AuthorBooks from './components/public/Authors/AuthorBooks/AuthorBooks'
 import Registration from './components/public/Registration/Registation'
 import ContentView from './components/public/ContentView'
+
 interface IApplicationProps {}
 
 const Application: React.FunctionComponent<IApplicationProps> = () => {
@@ -39,9 +40,7 @@ const Application: React.FunctionComponent<IApplicationProps> = () => {
                 <Route path='/settings' element={<Settings/>}/>
               </>
           )}
-          <Route path='library' element={<Library/>} />
           <Route path='/registration' element={<Registration/>}/>
-          <Route path='/authors' element={<Authors/>} />
           <Route path='/author/:authorId' element={<AuthorBooks/>} />
           <Route path='/book/:bid' element={<Tablet />} />
           <Route path='/content/:bid' element={<ContentView /> } />
