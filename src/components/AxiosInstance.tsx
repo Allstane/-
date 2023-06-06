@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export const instance = axios.create({
-  baseURL: 'https://alefowl.com/api',
+  baseURL: 'http://localhost:8080',
   timeout: 10000
 });

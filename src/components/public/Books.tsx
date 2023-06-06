@@ -16,9 +16,9 @@ export default function BooksList(author: number) {
 
   return (
     <List sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper' }}>
-        { books.sort((b1,b2)=> b1.metabook - b2.metabook)
+        { books.sort((b1,b2)=> b2.metabook - b1.metabook)
                .map(b => <ListItem alignItems="flex-start">
-                         <Link to={bookContentLink(b.id)}><ListItemText primary={b.title} /></Link>
+                         <Link to={bookContentLink(b.id)}><ListItemText primary={b.title + " (" + b.author + ")"} /></Link>
                          </ListItem>) }
     </List>
   )

@@ -8,8 +8,7 @@ export default function Nietzsche() {
    return (
     <body>
       <main className="App-main">
-        <Images />
-        {BooksList(1)}
+        {BooksList(0)}
       </main>
       <footer className="App-footer"><p> </p>
       </footer>
