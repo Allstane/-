@@ -41,7 +41,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 function Workspace(token: string = '') {
-  const headers = {headers: {'Authorization': token}};
+  const headers = {headers: {'Authorization': token, 'Origin': 'http://www.alefowl.com'}};
 
   const [people, setPeople] = useState<People>(dummyP)
   const getCreators = () => { instance.get<People>('/admin/creators', headers).then((p) => {setPeople(p.data) } ) }

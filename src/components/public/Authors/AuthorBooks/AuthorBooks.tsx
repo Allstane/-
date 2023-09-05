@@ -12,15 +12,10 @@ const AuthorBooks = () => {
 
     const [author, setAuthor] = useState<Creator>(dummyC)
     const [authorBooks, setAuthorBooks] = useState<[Book] | []>([])
+    const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
     useEffect(() => {
-        instance.get<Creator>(`/author/${authorId}`)
-            .then((response) => {
-                setAuthor(response.data)
-            })
-        instance.get<[Book]>(`/books/${authorId}`)
-            .then((response) => {
-                setAuthorBooks(response.data)
-            })
+        instance.get<Creator>(`/author/${authorId}`, headers).then((response) => {setAuthor(response.data) })
+        instance.get<[Book]>(`/books/${authorId}`, headers).then((response) => {setAuthorBooks(response.data)  })
     }, [])
     return <Container>
          <h1 className="author-books-header">Books writed by {author?.english_name}</h1>

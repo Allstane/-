@@ -10,7 +10,8 @@ import {Link} from 'react-router-dom'
 export default function BookContent() {
   const {bid} = useParams()
   const [bookF, setBookF] = useState<BookF>(dummyBF)
-  const getBookF = () => {instance.get<BookF>('/bookF/'+Number(bid)).then((b) => {setBookF(b.data) } )}
+  const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
+  const getBookF = () => {instance.get<BookF>('/bookF/'+Number(bid), headers).then((b) => {setBookF(b.data) } )}
 
   useEffect( () => getBookF(), [bookF] )
 

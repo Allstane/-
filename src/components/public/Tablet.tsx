@@ -9,8 +9,9 @@ function Tablet() {
 
    const {bid} = useParams()
    const [book, setBook] = useState<BookF>(dummyBF)
+   const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
 
-   const getBookF = () => {  instance.get<BookF>('/bookF/'+Number(bid)).then((b) => {setBook(b.data) } ) }
+   const getBookF = () => {  instance.get<BookF>('/bookF/'+Number(bid), headers).then((b) => {setBook(b.data) } ) }
 
    useEffect( () => getBookF(),  [] )
 
