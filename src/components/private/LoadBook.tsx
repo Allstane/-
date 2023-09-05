@@ -13,11 +13,11 @@ export default function LoadBook() {
    const token = getToken()
    const {bId} = useParams()
    const [rawBook, setRawBook] = useState<string>('')
-   const headers = {headers: {'Authorization': token}};
+   const headers = {headers: {'Authorization': token, 'Origin': 'http://www.alefowl.com'}};
 
   function insertBookF(bF: BookF) {
       const json = JSON.stringify(bF)
-      const headers = {headers: {'Content-Type': 'multipart/form-data', 'Content-Length': json.length}};
+      const headers = {headers: {'Content-Type': 'multipart/form-data', 'Content-Length': json.length, 'Origin': 'http://www.alefowl.com'}};
       instance.post('/admin/insertBookF', json, headers).then(r => { console.log('Response from backend after sending a bookF: ' + r.data)
                                                         if (r.data === 1) {alert('Book is created.')}
                                                                                                    } ) }
