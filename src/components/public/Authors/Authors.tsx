@@ -9,7 +9,8 @@ import './style.css'
 const Authors = () => {
 
     const [authors, setAuthors] = useState<Creator[]>([])
-    useEffect(() => { instance.get<[Creator]>("/authors").then((response) => { setAuthors(response.data) }) }, [])
+    const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
+    useEffect(() => { instance.get<[Creator]>("/authors", headers).then((response) => { setAuthors(response.data) }) }, [])
 
     return <Container>
         <Grid container spacing={4} className="authors-wrapper">

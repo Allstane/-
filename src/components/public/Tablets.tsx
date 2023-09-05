@@ -25,6 +25,9 @@ function Tablets() {
   const [leftNotes, setLeftNotes] = useState<Notes>([])
   const [rightNotes, setRightNotes] = useState<Notes>([])
   const navigate = useNavigate()
+
+  const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
+
   useEffect(() => {
     getMetabookF()
     getChapters()
@@ -46,12 +49,12 @@ function Tablets() {
   }
 
   function getNotes() {
-    instance.get<Notes>("/notes/" + Number(LBId)).then((n) => {setLeftNotes(n.data) })
-    instance.get<Notes>("/notes/" + Number(RBId)).then((n) => {setRightNotes(n.data) })
+    instance.get<Notes>("/notes/" + Number(LBId), headers).then((n) => {setLeftNotes(n.data) })
+    instance.get<Notes>("/notes/" + Number(RBId), headers).then((n) => {setRightNotes(n.data) })
   }
 
   function getMetabookF() {
-    instance.get<MetabookF>("/metabookF/" + Number(LBId))
+    instance.get<MetabookF>("/metabookF/" + Number(LBId), headers)
       .then((response) => { 
         setMetabookF(response.data); 
         updateBookPage(response.data.metabook.size)
@@ -72,14 +75,14 @@ function Tablets() {
   }
 
   function getChapters() {
-    instance.get<Chapter>("/book/" + Number(LBId) + "/chapter/" + Number(ChId)).then((ch: any) => {
+    instance.get<Chapter>("/book/" + Number(LBId) + "/chapter/" + Number(ChId), headers).then((ch: any) => {
       setLeftChapter(ch.data) 
       if (maxBookPage === currentPage) return
       if (!ch.data.txt || ch.data.txt === "null") {
         navigate(`/lbid/${LBId}/rbid/${RBId}/chid/${Number(ChId) + 1}`)
       }
     })
-    instance.get<Chapter>("/book/" + Number(RBId) + "/chapter/" + Number(ChId)).then((ch) => {setRightChapter(ch.data)})
+    instance.get<Chapter>("/book/" + Number(RBId) + "/chapter/" + Number(ChId), headers).then((ch) => {setRightChapter(ch.data)})
   }
 
   function findBook(metabookF: MetabookF, bookId: number): Book {
