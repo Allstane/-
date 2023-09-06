@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export const instance = axios.create({
-  baseURL: 'http://www.alefowl.com',
+  baseURL: 'http://0.0.0.0:80',
   timeout: 10000
 });
