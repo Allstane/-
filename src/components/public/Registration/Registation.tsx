@@ -36,7 +36,7 @@ const Registration = () => {
       langs: null, 
       location: null, 
     }
-    const passValidation = PasswordValidation(userPass)
+    const passValidation = true //PasswordValidation(userPass)
     if (emailValidation && firstname && login && surname && passValidation) {
       instance.post<RegData>('/reg', JSON.stringify(reqData), {headers: {'Content-Type': 'application/json'}})
         .then(() => {

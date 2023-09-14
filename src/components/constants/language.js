@@ -10,8 +10,7 @@ export const languages = [
 
 export let allLanguages = [];
 export const getLanguages = () => {
-    const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
-    instance.get('/languages', headers).then(response => allLanguages = response.data)
+    instance.get('/languages').then(response => allLanguages = response.data)
     return instance.get('/languages')
 }
 
