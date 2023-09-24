@@ -8,8 +8,7 @@ import {Link} from 'react-router-dom'
 
 export default function BooksList(author: number) {
   const [books, setBooks] = useState<Book[]>([])
-  const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
-  const getBooks = () =>  { instance.get<Book[]>('/books/' + author, headers).then((bs) => { setBooks(bs.data) } ) }
+  const getBooks = () =>  { instance.get<Book[]>('/books/' + author).then((bs) => { setBooks(bs.data) } ) }
 
   useEffect( () => getBooks(), [books] )
 

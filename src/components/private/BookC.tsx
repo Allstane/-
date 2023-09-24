@@ -15,11 +15,9 @@ export default function BookC() {
    const [bookF, setBookF] = useState<BookF>(dummyBF)
    const [notes, setNotes] = useState<Note[]>([])
 
-   const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
+   const getBookC = () => { instance.get<BookF>('/bookF/'+Number(bId)).then((b) => setBookF(b.data) ) }
 
-   const getBookC = () => { instance.get<BookF>('/bookF/'+Number(bId), headers).then((b) => setBookF(b.data) ) }
-
-   const getNotes = () => { instance.get<Note[]>('/notes/'+Number(bId), headers).then((b) => setNotes(b.data) ) }
+   const getNotes = () => { instance.get<Note[]>('/notes/'+Number(bId)).then((b) => setNotes(b.data) ) }
 
    useEffect( () => getBookC(), [])
    useEffect( () => getNotes(), [])

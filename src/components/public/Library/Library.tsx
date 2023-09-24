@@ -10,9 +10,8 @@ import './style.css'
 
 const Library = () => {
     const [metalibrary, setMetalibrary] = useState<Metalibrary>([])
-    const headers = {headers: {'Origin': 'http://www.alefowl.com'}}
 
-    const getMetalibrary = () => { instance.get<Metalibrary>('/metabooks', headers).then((ml) => {setMetalibrary(ml.data) } ) }
+    const getMetalibrary = () => { instance.get<Metalibrary>('/metabooks').then((ml) => {setMetalibrary(ml.data) } ) }
 
     useEffect( () => getMetalibrary(), [])
 
