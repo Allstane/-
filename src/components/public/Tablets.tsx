@@ -127,7 +127,10 @@ function Tablets() {
     <>
       <header className="App-header">
         <p>{findBook(metabookF, Number(LBId)).title}</p>
+        <div>
         <Button variant="contained" onClick={() => handleChangeSplitView(!isSplitView)}>Split View</Button>
+        <Button variant="contained" style={{marginLeft:'5px'}}>Download</Button>
+        </div>
         <Tags tags={tags}/>
       </header>
       <main className="App-main">
